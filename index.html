@@ -1,714 +1,1600 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Raimak — Daily Sales Entry</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
-<style>
-    :root {
-      --green:        #0F6E56;
-      --green-dark:   #085041;
-      --green-light:  #E1F5EE;
-      --green-mid:    #1D9E75;
-      --purple:       #534AB7;
-      --purple-light: #EEEDFE;
-      --blue-light:   #E6F1FB;
-      --blue-dark:    #0C447C;
-      --blue-mid:     #185FA5;
-      --amber-light:  #FAEEDA;
-      --amber-dark:   #633806;
-      --amber-mid:    #BA7517;
-      --red-light:    #FCEBEB;
-      --red-dark:     #A32D2D;
-      --border:       #E2E5EA;
-      --border-light: #EEF0F3;
-      --bg:           #F7F8FA;
-      --bg-card:      #FFFFFF;
-      --text:         #111827;
-      --text-sec:     #6B7280;
-      --radius-lg:    14px;
-      --radius-md:    8px;
-      --radius-sm:    6px;
-      --font:         -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      min-height: 100vh;
-      padding: 2rem 1rem 4rem;
-      color: var(--text);
-    }
-    .wrap { max-width: 680px; margin: 0 auto; }
- 
-    /* ── Header ── */
-    .form-header {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .logo-circle {
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      background: var(--green);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .logo-circle span { color: #fff; font-weight: 600; font-size: 13px; letter-spacing: .5px; }
-    .form-header h1 { font-size: 18px; font-weight: 600; }
-    .form-header p  { font-size: 13px; color: var(--text-sec); margin-top: 2px; }
- 
-    /* ── Mode toggle ── */
-    .mode-toggle {
-      display: flex;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 5px;
-      margin-bottom: 1rem;
-      gap: 4px;
-    }
-    .mode-btn {
-      flex: 1; padding: 9px 8px;
-      border: none; border-radius: 10px;
-      font-size: 13px; font-weight: 500;
-      cursor: pointer; font-family: var(--font);
-      background: transparent; color: var(--text-sec);
-      white-space: nowrap; transition: background .15s, color .15s;
-    }
-    .mode-btn.active {
-      background: var(--bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .mode-btn i { font-size: 13px; vertical-align: -2px; margin-right: 4px; }
- 
-    /* ── Section cards ── */
-    .section {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .section.shaded { background: #F3F5F8; }
-    .sec-title {
-      font-size: 11px; font-weight: 600;
-      color: var(--text-sec);
-      text-transform: uppercase; letter-spacing: .07em;
-      margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .sec-title i { font-size: 15px; }
-    .sub-title {
-      font-size: 11px; font-weight: 600;
-      color: var(--text-sec);
-      text-transform: uppercase; letter-spacing: .06em;
-      margin-bottom: 10px;
-      display: flex; align-items: center; gap: 5px;
-    }
-    .sub-title i { font-size: 13px; }
- 
-    /* ── Fields ── */
-    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    .field { display: flex; flex-direction: column; gap: 5px; }
-    .field label { font-size: 13px; color: var(--text-sec); font-weight: 500; }
-    .field input, .field select, .field textarea {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 8px 12px;
-      font-size: 14px; font-family: var(--font);
-      background: var(--bg-card); color: var(--text);
-      width: 100%;
-    }
-    .field input, .field select { height: 38px; }
-    .field textarea { height: 80px; resize: vertical; line-height: 1.5; }
-    .field input:focus, .field select:focus, .field textarea:focus {
-      outline: none;
-      border-color: var(--green-mid);
-      box-shadow: 0 0 0 3px rgba(29,158,117,.15);
-    }
-    .divider { height: 1px; background: var(--border-light); margin: 1rem 0; }
- 
-    /* ── Counter cards ── */
-    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .ccard {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 11px 12px;
-      background: var(--bg);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .ccard-l { flex: 1; min-width: 0; }
-    .ccard-label { font-size: 13px; font-weight: 600; color: var(--text); }
-    .ccard-sub   { font-size: 11px; color: var(--text-sec); margin-top: 1px; }
-    .qw { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    .qb {
-      width: 30px; height: 30px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--bg-card); color: var(--text);
-      font-size: 18px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      line-height: 1; transition: background .1s;
-    }
-    .qb:hover { background: var(--border-light); }
-    .qv { font-size: 15px; font-weight: 600; min-width: 24px; text-align: center; }
- 
-    /* ── VAS grid ── */
-    .vas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .vi {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      background: var(--bg);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .vi.bund { border-color: var(--green-mid); background: var(--green-light); }
-    .vi.bund .ccard-label { color: var(--green-dark); }
-    .vi.bund .ccard-sub   { color: var(--green); }
-    .bbadge {
-      display: inline-flex; align-items: center; gap: 3px;
-      background: var(--green); color: var(--green-light);
-      font-size: 10px; font-weight: 600;
-      padding: 2px 7px; border-radius: 20px;
-      margin-left: 5px; vertical-align: middle;
-    }
- 
-    /* ── Metrics ── */
-    .metrics-bar  { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
-    .d2d-metrics  { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
-    .mc {
-      background: var(--bg-card);
-      border-radius: var(--radius-md);
-      padding: 12px 10px; text-align: center;
-      border: 1px solid var(--border);
-    }
-    .ml { font-size: 10px; color: var(--text-sec); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
-    .mv { font-size: 24px; font-weight: 700; color: var(--text); }
-    .mv.hi { color: var(--green); }
-    .mv.wa { color: var(--amber-mid); }
-    .mv.bl { color: var(--blue-mid); }
-    .info-note {
-      margin-top: 10px; padding: 10px 12px;
-      background: var(--bg-card); border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      font-size: 12px; color: var(--text-sec);
-      display: flex; align-items: center; gap: 6px;
-    }
-    .info-note i { font-size: 14px; color: var(--green); }
- 
-    /* ── Mode badges ── */
-    .mode-badge {
-      display: inline-flex; align-items: center;
-      font-size: 12px; font-weight: 600;
-      padding: 3px 10px; border-radius: 20px;
-      margin-left: 8px; vertical-align: middle;
-    }
-    .badge-sc    { background: var(--green-light);  color: var(--green-dark); }
-    .badge-d2d   { background: var(--blue-light);   color: var(--blue-dark); }
-    .badge-admin { background: var(--purple-light);  color: var(--purple); }
- 
-    /* ── Admin tasks ── */
-    .task-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
-    .task-row {
-      display: flex; gap: 10px; align-items: flex-start;
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 12px;
-    }
-    .task-row-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex: 1; }
-    .task-remove {
-      width: 30px; height: 30px; flex-shrink: 0;
-      border: 1px solid var(--border); border-radius: var(--radius-sm);
-      background: var(--bg-card); color: var(--text-sec);
-      font-size: 16px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .1s, color .1s, border-color .1s;
-    }
-    .task-remove:hover { background: var(--red-light); color: var(--red-dark); border-color: #F09595; }
-    .add-task-btn {
-      display: flex; align-items: center; gap: 6px;
-      background: transparent;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius-md);
-      padding: 9px 16px;
-      font-size: 13px; font-weight: 500;
-      color: var(--text-sec); cursor: pointer;
-      font-family: var(--font); width: 100%;
-      transition: background .1s, color .1s;
-    }
-    .add-task-btn:hover { background: var(--bg); color: var(--text); }
-    .add-task-btn i { font-size: 15px; }
-    .assignee-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
-    .chip {
-      padding: 5px 12px; border-radius: 20px;
-      font-size: 12px; font-weight: 500; cursor: pointer;
-      border: 1px solid var(--border);
-      background: var(--bg-card); color: var(--text-sec);
-      font-family: var(--font); transition: background .1s, color .1s;
-    }
-    .chip:hover { background: var(--bg); }
-    .chip.selected { background: var(--purple); color: var(--purple-light); border-color: var(--purple); }
-    .chip.chip-other.selected { background: var(--amber-dark); color: var(--amber-light); border-color: var(--amber-dark); }
-    .other-name-wrap { display: none; margin-top: 8px; }
-    .other-name-wrap input { height: 34px; font-size: 13px; }
- 
-    /* ── Submit row ── */
-    .submit-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.25rem; }
-    .btn-reset {
-      background: transparent; border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 10px 22px;
-      font-size: 14px; cursor: pointer; color: var(--text-sec);
-      font-family: var(--font); font-weight: 500;
-      transition: background .1s;
-    }
-    .btn-reset:hover { background: var(--bg); }
-    .btn-submit {
-      background: var(--green); border: none;
-      border-radius: var(--radius-md); padding: 10px 30px;
-      font-size: 14px; cursor: pointer; color: #fff;
-      font-family: var(--font); font-weight: 600;
-      display: flex; align-items: center; gap: 6px;
-      transition: background .1s;
-    }
-    .btn-submit:hover { background: var(--green-dark); }
-    .btn-submit i { font-size: 15px; }
-    .notice { font-size: 12px; color: var(--text-sec); margin-top: 8px; text-align: right; }
- 
-    /* ── Toast ── */
-    .toast {
-      display: none; position: fixed;
-      bottom: 28px; right: 28px;
-      background: var(--green); color: #fff;
-      border-radius: var(--radius-md);
-      padding: 12px 20px; font-size: 14px; font-weight: 600;
-      border: 1px solid var(--green-dark);
-      box-shadow: 0 4px 16px rgba(0,0,0,.12);
-      z-index: 999;
-    }
-    .toast.show { display: block; }
- 
-    /* ── Responsive ── */
-    @media (max-width: 500px) {
-      .row2, .row3, .card-grid, .vas-grid, .task-row-inner { grid-template-columns: 1fr; }
-      .metrics-bar, .d2d-metrics { grid-template-columns: 1fr 1fr; }
-    }
-</style>
-</head>
-<body>
-<div class="wrap">
- 
-  <div class="form-header">
-<div class="logo-circle"><span>RM</span></div>
-<div>
-<h1>Daily Sales Entry</h1>
-<p>Frontier Fiber &amp; Verizon — field rep daily report</p>
-</div>
-</div>
- 
-  <div class="mode-toggle">
-<button class="mode-btn active" id="btn-sc" onclick="setMode('sc')"><i class="ti ti-users"></i>Sales Center</button>
-<button class="mode-btn" id="btn-d2d" onclick="setMode('d2d')"><i class="ti ti-door-enter"></i>D2D</button>
-<button class="mode-btn" id="btn-admin" onclick="setMode('admin')"><i class="ti ti-shield"></i>Admin</button>
-</div>
- 
-  <!-- REP INFO -->
-<div class="section">
-<div class="sec-title"><i class="ti ti-user"></i> Rep info <span class="mode-badge badge-sc" id="mode-label">Sales Center</span></div>
-<div class="row2" style="margin-bottom:12px;">
-<div class="field"><label for="fname">First name</label><input type="text" id="fname" placeholder="e.g. Maria"></div>
-<div class="field"><label for="lname">Last name</label><input type="text" id="lname" placeholder="e.g. Torres"></div>
-</div>
-<div class="row2">
-<div class="field"><label for="edate">Date of entry</label><input type="date" id="edate"></div>
-<div class="field" id="team-field">
-<label for="team">Team</label>
-<select id="team">
-<option value="">— select —</option>
-<option>Remote</option>
-<option>Texas</option>
-<option>Florida</option>
-</select>
-</div>
-</div>
-</div>
- 
-  <!-- ACTIVITY SUMMARY -->
-<div class="section">
-<div class="sec-title"><i class="ti ti-clipboard-list"></i> Activity summary</div>
- 
-    <div id="sc-activity" class="row3">
-<div class="field"><label for="leads">Leads worked</label><input type="number" id="leads" min="0" placeholder="0" oninput="calc()"></div>
-<div class="field"><label for="closed">Total closed sales</label><input type="number" id="closed" min="0" placeholder="0" oninput="calc()"></div>
-<div class="field"><label for="vz_ref">Verizon referrals</label><input type="number" id="vz_ref" min="0" placeholder="0"></div>
-</div>
- 
-    <div id="d2d-activity" style="display:none;">
-<div class="row3" style="margin-bottom:12px;">
-<div class="field"><label for="d_doors">Doors knocked</label><input type="number" id="d_doors" min="0" placeholder="0" oninput="calc()"></div>
-<div class="field"><label for="d_calls">Outbound calls</label><input type="number" id="d_calls" min="0" placeholder="0"></div>
-<div class="field"><label for="d_sales">Total sales</label><input type="number" id="d_sales" min="0" placeholder="0" oninput="calc()"></div>
-</div>
-<div class="row3">
-<div class="field"><label for="d_appts">Appointments made</label><input type="number" id="d_appts" min="0" placeholder="0" oninput="calc()"></div>
-<div class="field"><label for="d_interact">Interactions made</label><input type="number" id="d_interact" min="0" placeholder="0"></div>
-<div class="field"><label for="d_vzappt">Verizon appt referrals</label><input type="number" id="d_vzappt" min="0" placeholder="0"></div>
-</div>
-</div>
- 
-    <div id="admin-activity" style="display:none;">
-<div class="row3" style="margin-bottom:12px;">
-<div class="field"><label for="a_leads">Leads worked</label><input type="number" id="a_leads" min="0" placeholder="0" oninput="calc()"></div>
-<div class="field"><label for="a_closed">Total closed sales</label><input type="number" id="a_closed" min="0" placeholder="0" oninput="calc()"></div>
-<div class="field"><label for="a_vz_ref">Verizon referrals</label><input type="number" id="a_vz_ref" min="0" placeholder="0"></div>
-</div>
-<div class="row3">
-<div class="field"><label for="a_calls">Calls answered</label><input type="number" id="a_calls" min="0" placeholder="0"></div>
-<div class="field"><label for="a_orders">Orders written</label><input type="number" id="a_orders" min="0" placeholder="0"></div>
-<div class="field"><label for="a_scrubbed">Leads scrubbed</label><input type="number" id="a_scrubbed" min="0" placeholder="0"></div>
-</div>
-</div>
-</div>
- 
-  <!-- ADMIN: ADDITIONAL RESPONSIBILITIES -->
-<div class="section" id="admin-tasks-section" style="display:none;">
-<div class="sec-title"><i class="ti ti-list-check"></i> Additional responsibilities</div>
-<div class="task-list" id="task-list"></div>
-<button class="add-task-btn" onclick="addTask()"><i class="ti ti-plus"></i> Add responsibility</button>
-</div>
- 
-  <!-- INTERNET SALES -->
-<div class="section">
-<div class="sec-title"><i class="ti ti-home"></i> Internet sales</div>
-<div class="sub-title"><i class="ti ti-building-community"></i> Sale type</div>
-<div class="card-grid" style="margin-bottom:1rem;">
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">New residential</div><div class="ccard-sub">Brand-new installs</div></div><div class="qw"><button class="qb" onclick="adj('new_res',-1)">−</button><span class="qv" id="new_res-val">0</span><button class="qb" onclick="adj('new_res',1)">+</button></div></div>
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">Migration sales</div><div class="ccard-sub">Copper-to-fiber</div></div><div class="qw"><button class="qb" onclick="adj('migration',-1)">−</button><span class="qv" id="migration-val">0</span><button class="qb" onclick="adj('migration',1)">+</button></div></div>
-</div>
-<div class="divider"></div>
-<div class="sub-title"><i class="ti ti-wifi"></i> Speed tier</div>
-<div class="card-grid">
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">500 Mbps &amp; under</div><div class="ccard-sub">Entry / mid-tier fiber</div></div><div class="qw"><button class="qb" onclick="adj('under500',-1)">−</button><span class="qv" id="under500-val">0</span><button class="qb" onclick="adj('under500',1)">+</button></div></div>
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">1 Gig &amp; above</div><div class="ccard-sub">Gig+ / premium tier</div></div><div class="qw"><button class="qb" onclick="adj('gig1',-1)">−</button><span class="qv" id="gig1-val">0</span><button class="qb" onclick="adj('gig1',1)">+</button></div></div>
-</div>
-</div>
- 
-  <!-- HOME PHONE -->
-<div class="section">
-<div class="sec-title"><i class="ti ti-phone"></i> Home phone</div>
-<div class="card-grid">
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">New home phones</div><div class="ccard-sub">First-time activation</div></div><div class="qw"><button class="qb" onclick="adj('new_phone',-1)">−</button><span class="qv" id="new_phone-val">0</span><button class="qb" onclick="adj('new_phone',1)">+</button></div></div>
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">Existing home phones</div><div class="ccard-sub">Retained on account</div></div><div class="qw"><button class="qb" onclick="adj('exist_phone',-1)">−</button><span class="qv" id="exist_phone-val">0</span><button class="qb" onclick="adj('exist_phone',1)">+</button></div></div>
-</div>
-</div>
- 
-  <!-- VAS -->
-<div class="section">
-<div class="sec-title"><i class="ti ti-shield-check"></i> VAS sold</div>
-<div class="vas-grid">
-<div class="vi"><div class="ccard-l"><div class="ccard-label">Whole Home WiFi</div><div class="ccard-sub">WHW</div></div><div class="qw"><button class="qb" onclick="adj('whw',-1)">−</button><span class="qv" id="whw-val">0</span><button class="qb" onclick="adj('whw',1)">+</button></div></div>
-<div class="vi"><div class="ccard-l"><div class="ccard-label">WiFi Security</div><div class="ccard-sub">Standard</div></div><div class="qw"><button class="qb" onclick="adj('ws',-1)">−</button><span class="qv" id="ws-val">0</span><button class="qb" onclick="adj('ws',1)">+</button></div></div>
-<div class="vi"><div class="ccard-l"><div class="ccard-label">WiFi Security Plus</div><div class="ccard-sub">Enhanced protection</div></div><div class="qw"><button class="qb" onclick="adj('wsp',-1)">−</button><span class="qv" id="wsp-val">0</span><button class="qb" onclick="adj('wsp',1)">+</button></div></div>
-<div class="vi"><div class="ccard-l"><div class="ccard-label">My Premium Tech Pro</div><div class="ccard-sub">Tech support</div></div><div class="qw"><button class="qb" onclick="adj('mpt',-1)">−</button><span class="qv" id="mpt-val">0</span><button class="qb" onclick="adj('mpt',1)">+</button></div></div>
-<div class="vi"><div class="ccard-l"><div class="ccard-label">Unbreakable WiFi</div><div class="ccard-sub">UBW</div></div><div class="qw"><button class="qb" onclick="adj('ubw',-1)">−</button><span class="qv" id="ubw-val">0</span><button class="qb" onclick="adj('ubw',1)">+</button></div></div>
-<div class="vi bund">
-<div class="ccard-l">
-<div class="ccard-label">Netflix Bundle<span class="bbadge"><i class="ti ti-layers-intersect" style="font-size:10px;"></i> ×3</span></div>
-<div class="ccard-sub">Includes WHW + WiFi Security</div>
-</div>
-<div class="qw"><button class="qb" onclick="adj('nflx',-1)">−</button><span class="qv" id="nflx-val">0</span><button class="qb" onclick="adj('nflx',1)">+</button></div>
-</div>
-</div>
-</div>
- 
-  <!-- TV & WIRELESS -->
-<div class="section">
-<div class="sec-title"><i class="ti ti-device-tv"></i> TV &amp; wireless</div>
-<div class="card-grid">
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">YouTube TV</div><div class="ccard-sub">Sold today</div></div><div class="qw"><button class="qb" onclick="adj('ytv',-1)">−</button><span class="qv" id="ytv-val">0</span><button class="qb" onclick="adj('ytv',1)">+</button></div></div>
-<div class="ccard"><div class="ccard-l"><div class="ccard-label">Verizon lines sold</div><div class="ccard-sub">Wireless lines closed</div></div><div class="qw"><button class="qb" onclick="adj('vz_lines',-1)">−</button><span class="qv" id="vz_lines-val">0</span><button class="qb" onclick="adj('vz_lines',1)">+</button></div></div>
-</div>
-</div>
- 
-  <!-- DAILY TOTALS -->
-<div class="section shaded">
-<div class="sec-title"><i class="ti ti-chart-bar"></i> Daily totals — auto-calculated</div>
- 
-    <div id="sc-metrics" class="metrics-bar">
-<div class="mc"><div class="ml">Total VAS</div><div class="mv hi" id="m-vas">0</div></div>
-<div class="mc"><div class="ml">VAS attach %</div><div class="mv hi" id="m-vas-rate">—</div></div>
-<div class="mc"><div class="ml">Gig+ sales</div><div class="mv" id="m-gig">0</div></div>
-<div class="mc"><div class="ml">Gig+ attach %</div><div class="mv wa" id="m-gig-rate">—</div></div>
-</div>
- 
-    <div id="d2d-metrics" style="display:none;">
-<div class="d2d-metrics" style="margin-bottom:10px;">
-<div class="mc"><div class="ml">Total VAS</div><div class="mv hi" id="d-m-vas">0</div></div>
-<div class="mc"><div class="ml">VAS attach %</div><div class="mv hi" id="d-m-vas-rate">—</div></div>
-<div class="mc"><div class="ml">Gig+ attach %</div><div class="mv wa" id="d-m-gig-rate">—</div></div>
-</div>
-<div class="d2d-metrics">
-<div class="mc"><div class="ml">Doors → sales %</div><div class="mv bl" id="d-m-close">—</div></div>
-<div class="mc"><div class="ml">Gig+ sales</div><div class="mv" id="d-m-gig">0</div></div>
-<div class="mc"><div class="ml">Appts made</div><div class="mv" id="d-m-appts">0</div></div>
-</div>
-</div>
- 
-    <div class="info-note"><i class="ti ti-info-circle"></i> Netflix Bundle counts as 3 VAS units (Netflix + Whole Home WiFi + WiFi Security). VAS attach = total VAS ÷ closed sales.</div>
-</div>
- 
-  <div class="submit-row">
-<button class="btn-reset" onclick="resetForm()">Clear form</button>
-<button class="btn-submit" onclick="submitForm()"><i class="ti ti-check"></i> Submit entry</button>
-</div>
-<p class="notice">Entries submitted for manager review. Contact your admin with any corrections.</p>
- 
-</div><!-- /wrap -->
- 
-<div class="toast" id="toast"></div>
- 
-<script>
-  var mode = 'sc';
-  var taskCount = 0;
-  var counts = {
-    new_res:0, migration:0, under500:0, gig1:0,
-    new_phone:0, exist_phone:0,
-    whw:0, ws:0, wsp:0, mpt:0, ubw:0, nflx:0,
-    ytv:0, vz_lines:0
-  };
- 
-  var teamOptions = {
-    sc:  '<option value="">— select —</option><option>Remote</option><option>Texas</option><option>Florida</option>',
-    d2d: '<option value="">— select —</option><option>Independent Rep</option><option>Stephen\'s Team</option><option>Houston\'s Team</option>'
-  };
- 
-  var modeLabels = {
-    sc:    { text: 'Sales Center', cls: 'badge-sc' },
-    d2d:   { text: 'D2D',         cls: 'badge-d2d' },
-    admin: { text: 'Admin',       cls: 'badge-admin' }
-  };
- 
-  var assignees = ['Toni', 'Meagan', 'Brent', 'Other leadership member'];
- 
-  function setMode(m) {
-    mode = m;
-    ['sc','d2d','admin'].forEach(function(x) {
-      document.getElementById('btn-' + x).classList.toggle('active', x === m);
-    });
-    document.getElementById('sc-activity').style.display    = m === 'sc'    ? 'grid'  : 'none';
-    document.getElementById('d2d-activity').style.display   = m === 'd2d'   ? 'block' : 'none';
-    document.getElementById('admin-activity').style.display = m === 'admin' ? 'block' : 'none';
-    document.getElementById('admin-tasks-section').style.display = m === 'admin' ? 'block' : 'none';
-    document.getElementById('sc-metrics').style.display  = m === 'd2d' ? 'none' : 'grid';
-    document.getElementById('d2d-metrics').style.display = m === 'd2d' ? 'block' : 'none';
- 
-    var tf  = document.getElementById('team-field');
-    var lbl = document.getElementById('mode-label');
-    var ml  = modeLabels[m];
-    lbl.textContent = ml.text;
-    lbl.className   = 'mode-badge ' + ml.cls;
- 
-    if (m === 'admin') {
-      tf.style.display = 'none';
-    } else {
-      tf.style.display = 'flex';
-      document.getElementById('team').innerHTML = teamOptions[m];
-    }
-    calc();
-  }
- 
-  function adj(key, delta) {
-    counts[key] = Math.max(0, counts[key] + delta);
-    document.getElementById(key + '-val').textContent = counts[key];
-    calc();
-  }
- 
-  function calc() {
-    var vas = counts.whw + counts.ws + counts.wsp + counts.mpt + counts.ubw + (counts.nflx * 3);
-    var gig = counts.gig1;
- 
-    if (mode === 'd2d') {
-      var sales  = parseInt(document.getElementById('d_sales').value)  || 0;
-      var doors  = parseInt(document.getElementById('d_doors').value)  || 0;
-      var appts  = parseInt(document.getElementById('d_appts').value)  || 0;
-      document.getElementById('d-m-vas').textContent      = vas;
-      document.getElementById('d-m-gig').textContent      = gig;
-      document.getElementById('d-m-appts').textContent    = appts;
-      document.getElementById('d-m-vas-rate').textContent = sales > 0 ? Math.round(vas / sales * 100) + '%' : '—';
-      document.getElementById('d-m-gig-rate').textContent = sales > 0 ? Math.round(gig / sales * 100) + '%' : '—';
-      document.getElementById('d-m-close').textContent    = doors > 0 ? Math.round(sales / doors * 100) + '%' : '—';
-    } else {
-      var closed = mode === 'admin'
-        ? (parseInt(document.getElementById('a_closed').value) || 0)
-        : (parseInt(document.getElementById('closed').value)   || 0);
-      document.getElementById('m-vas').textContent      = vas;
-      document.getElementById('m-gig').textContent      = gig;
-      document.getElementById('m-vas-rate').textContent = closed > 0 ? Math.round(vas / closed * 100) + '%' : '—';
-      document.getElementById('m-gig-rate').textContent = closed > 0 ? Math.round(gig / closed * 100) + '%' : '—';
-    }
-  }
- 
-  function addTask() {
-    taskCount++;
-    var id  = 'task-' + taskCount;
-    var tid = taskCount;
-    var div = document.createElement('div');
-    div.className = 'task-row';
-    div.id = id;
-    div.innerHTML =
-      '<div style="flex:1;min-width:0;">' +
-        '<div class="task-row-inner">' +
-          '<div class="field">' +
-            '<label style="font-size:12px;color:var(--text-sec);font-weight:500;">Responsibility</label>' +
-            '<textarea placeholder="Describe the task or responsibility assigned..."></textarea>' +
-          '</div>' +
-          '<div class="field">' +
-            '<label style="font-size:12px;color:var(--text-sec);font-weight:500;">Assigned by</label>' +
-            '<div class="assignee-chips" id="chips-' + tid + '">' +
-              assignees.map(function(a, i) {
-                var isOther = i === assignees.length - 1;
-                return '<button class="chip' + (isOther ? ' chip-other' : '') + '" onclick="selectChip(' + tid + ',' + i + ',' + isOther + ',this)">' + a + '</button>';
-              }).join('') +
-            '</div>' +
-            '<div class="other-name-wrap" id="other-wrap-' + tid + '">' +
-              '<input type="text" placeholder="Enter leadership member name...">' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-      '<button class="task-remove" onclick="removeTask(\'' + id + '\')" aria-label="Remove responsibility">' +
-        '<i class="ti ti-x" style="font-size:14px;pointer-events:none;"></i>' +
-      '</button>';
-    document.getElementById('task-list').appendChild(div);
-  }
- 
-  function selectChip(taskId, idx, isOther, btn) {
-    var chips = document.getElementById('chips-' + taskId).querySelectorAll('.chip');
-    chips.forEach(function(c) { c.classList.remove('selected'); });
-    btn.classList.add('selected');
-    document.getElementById('other-wrap-' + taskId).style.display = isOther ? 'block' : 'none';
-  }
- 
-  function removeTask(id) {
-    var el = document.getElementById(id);
-    if (el) el.parentNode.removeChild(el);
-  }
- 
-  function resetForm() {
-    ['fname','lname','edate','leads','closed','vz_ref',
-     'a_leads','a_closed','a_vz_ref','a_calls','a_orders','a_scrubbed',
-     'd_doors','d_calls','d_sales','d_appts','d_interact','d_vzappt'
-    ].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    var ts = document.getElementById('team');
-    if (ts) ts.value = '';
-    Object.keys(counts).forEach(function(k) {
-      counts[k] = 0;
-      document.getElementById(k + '-val').textContent = '0';
-    });
-    document.getElementById('task-list').innerHTML = '';
-    taskCount = 0;
-    calc();
-    document.getElementById('edate').value = new Date().toISOString().split('T')[0];
-  }
- 
-async function submitForm() {
-    var fname  = document.getElementById('fname').value.trim();
-    var lname  = document.getElementById('lname').value.trim();
-    var edate  = document.getElementById('edate').value;
-    
-    var salesEl = mode === 'admin' ? document.getElementById('a_closed')
-                : mode === 'd2d'   ? document.getElementById('d_sales')
-                :                    document.getElementById('closed');
-                
-    if (!fname || !lname || !edate || !salesEl.value) {
-      alert('Please fill in first name, last name, date, and total sales before submitting.');
-      return;
-    }
-    
-    var teamEl  = document.getElementById('team');
-    var teamVal = (teamEl && teamEl.style.display !== 'none') ? teamEl.value : 'Admin';
-
-    // 1. Scrape the dynamic Admin tasks
-    var adminTasks = [];
-    if (mode === 'admin') {
-      var taskRows = document.querySelectorAll('#task-list .task-row');
-      taskRows.forEach(function(row) {
-        var desc = row.querySelector('textarea').value;
-        var selectedChip = row.querySelector('.chip.selected');
-        var assignedBy = selectedChip ? selectedChip.textContent : 'Unassigned';
-        
-        // If "Other" is selected, grab the text input
-        if (selectedChip && selectedChip.classList.contains('chip-other')) {
-          var otherInput = row.querySelector('.other-name-wrap input').value;
-          assignedBy = otherInput || 'Other (unspecified)';
-        }
-        
-        if (desc) {
-          adminTasks.push({ task: desc, assignedBy: assignedBy });
-        }
-      });
-    }
-
-    // 2. Build the clean JSON Payload
-    var payload = {
-      repName: fname + ' ' + lname,
-      date: edate,
-      team: teamVal,
-      entryMode: mode,
-      totalSales: salesEl.value,
-      metrics: counts, // Automatically grabs all the counters Steph set up
-      additionalTasks: adminTasks
-    };
-
-    // 3. Send to Power Automate (Replace URL once you create the flow)
-    var powerAutomateWebhookUrl = "YOUR_POWER_AUTOMATE_HTTP_URL_HERE";
-
-    try {
-      // Change button text so the user knows it's thinking
-      var submitBtn = document.querySelector('.btn-submit');
-      var originalBtnHTML = submitBtn.innerHTML;
-      submitBtn.innerHTML = "Sending...";
-      submitBtn.disabled = true;
-
-      const response = await fetch(powerAutomateWebhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        var t = document.getElementById('toast');
-        t.textContent = fname + ' ' + lname + ' · ' + teamVal + ' — entry submitted!';
-        t.classList.add('show');
-        setTimeout(function() { t.classList.remove('show'); }, 3500);
-        resetForm(); // Clear form after success
-      } else {
-        alert("There was an issue submitting the form. Please try again.");
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raimak — Daily Sales Entry</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"
+    />
+    <style>
+      :root {
+        --green: #0f6e56;
+        --green-dark: #085041;
+        --green-light: #e1f5ee;
+        --green-mid: #1d9e75;
+        --purple: #534ab7;
+        --purple-light: #eeedfe;
+        --blue-light: #e6f1fb;
+        --blue-dark: #0c447c;
+        --blue-mid: #185fa5;
+        --amber-light: #faeeda;
+        --amber-dark: #633806;
+        --amber-mid: #ba7517;
+        --red-light: #fcebeb;
+        --red-dark: #a32d2d;
+        --border: #e2e5ea;
+        --border-light: #eef0f3;
+        --bg: #f7f8fa;
+        --bg-card: #ffffff;
+        --text: #111827;
+        --text-sec: #6b7280;
+        --radius-lg: 14px;
+        --radius-md: 8px;
+        --radius-sm: 6px;
+        --font:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
-    } catch (error) {
-      console.error("Submission failed", error);
-      alert("Network error. Please check your connection.");
-    } finally {
-      // Reset button state
-      submitBtn.innerHTML = originalBtnHTML;
-      submitBtn.disabled = false;
-    }
-  }
- 
-  // Init
-  document.getElementById('edate').value = new Date().toISOString().split('T')[0];
-</script>
-</body>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--bg);
+        min-height: 100vh;
+        padding: 2rem 1rem 4rem;
+        color: var(--text);
+      }
+      .wrap {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* ── Header ── */
+      .form-header {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .logo-circle {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .logo-circle span {
+        color: #fff;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+      }
+      .form-header h1 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .form-header p {
+        font-size: 13px;
+        color: var(--text-sec);
+        margin-top: 2px;
+      }
+
+      /* ── Mode toggle ── */
+      .mode-toggle {
+        display: flex;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 5px;
+        margin-bottom: 1rem;
+        gap: 4px;
+      }
+      .mode-btn {
+        flex: 1;
+        padding: 9px 8px;
+        border: none;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: var(--font);
+        background: transparent;
+        color: var(--text-sec);
+        white-space: nowrap;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .mode-btn.active {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .mode-btn i {
+        font-size: 13px;
+        vertical-align: -2px;
+        margin-right: 4px;
+      }
+
+      /* ── Section cards ── */
+      .section {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .section.shaded {
+        background: #f3f5f8;
+      }
+      .sec-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-sec);
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .sec-title i {
+        font-size: 15px;
+      }
+      .sub-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-sec);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .sub-title i {
+        font-size: 13px;
+      }
+
+      /* ── Fields ── */
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .row3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .field label {
+        font-size: 13px;
+        color: var(--text-sec);
+        font-weight: 500;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 8px 12px;
+        font-size: 14px;
+        font-family: var(--font);
+        background: var(--bg-card);
+        color: var(--text);
+        width: 100%;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .field input,
+      .field select {
+        height: 38px;
+      }
+      .field textarea {
+        height: 80px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--green-mid);
+        box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.15);
+      }
+      .divider {
+        height: 1px;
+        background: var(--border-light);
+        margin: 1rem 0;
+      }
+
+      /* ── Counter cards (Upgraded UI) ── */
+      .card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .ccard {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 11px 12px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: border-color 0.15s;
+      }
+      .ccard:focus-within {
+        border-color: var(--green-mid);
+      }
+      .ccard-l {
+        flex: 1;
+        min-width: 0;
+      }
+      .ccard-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .ccard-sub {
+        font-size: 11px;
+        color: var(--text-sec);
+        margin-top: 1px;
+      }
+      .qw {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+      .qb {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-card);
+        color: var(--text);
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        transition:
+          background 0.1s,
+          color 0.1s;
+      }
+      .qb:hover {
+        background: var(--border-light);
+      }
+      .qb:active {
+        background: var(--border);
+      }
+
+      /* Typeable Incrementor Field */
+      .qv-input {
+        width: 44px;
+        height: 32px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--text);
+        font-family: var(--font);
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+      }
+      .qv-input:focus {
+        outline: none;
+        background: var(--bg-card);
+        border-color: var(--green-mid);
+      }
+      /* Hide arrows for Chrome, Safari, Edge, Opera */
+      .qv-input::-webkit-outer-spin-button,
+      .qv-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      /* Hide arrows for Firefox */
+      .qv-input[type="number"] {
+        -moz-appearance: textfield;
+      }
+
+      /* ── VAS grid ── */
+      .vas-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .vi {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 10px 12px;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: border-color 0.15s;
+      }
+      .vi:focus-within {
+        border-color: var(--green-mid);
+      }
+      .vi.bund {
+        border-color: var(--green-mid);
+        background: var(--green-light);
+      }
+      .vi.bund:focus-within {
+        box-shadow: 0 0 0 2px rgba(29, 158, 117, 0.2);
+      }
+      .vi.bund .ccard-label {
+        color: var(--green-dark);
+      }
+      .vi.bund .ccard-sub {
+        color: var(--green);
+      }
+      .bbadge {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        background: var(--green);
+        color: var(--green-light);
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 7px;
+        border-radius: 20px;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+
+      /* ── Metrics ── */
+      .metrics-bar {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .d2d-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .mc {
+        background: var(--bg-card);
+        border-radius: var(--radius-md);
+        padding: 12px 10px;
+        text-align: center;
+        border: 1px solid var(--border);
+      }
+      .ml {
+        font-size: 10px;
+        color: var(--text-sec);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+      .mv {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .mv.hi {
+        color: var(--green);
+      }
+      .mv.wa {
+        color: var(--amber-mid);
+      }
+      .mv.bl {
+        color: var(--blue-mid);
+      }
+      .info-note {
+        margin-top: 10px;
+        padding: 10px 12px;
+        background: var(--bg-card);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--text-sec);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .info-note i {
+        font-size: 14px;
+        color: var(--green);
+      }
+
+      /* ── Mode badges ── */
+      .mode-badge {
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+      .badge-sc {
+        background: var(--green-light);
+        color: var(--green-dark);
+      }
+      .badge-d2d {
+        background: var(--blue-light);
+        color: var(--blue-dark);
+      }
+      .badge-admin {
+        background: var(--purple-light);
+        color: var(--purple);
+      }
+
+      /* ── Admin tasks ── */
+      .task-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .task-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 12px;
+      }
+      .task-row-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        flex: 1;
+      }
+      .task-remove {
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-card);
+        color: var(--text-sec);
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.1s,
+          color 0.1s,
+          border-color 0.1s;
+      }
+      .task-remove:hover {
+        background: var(--red-light);
+        color: var(--red-dark);
+        border-color: #f09595;
+      }
+      .add-task-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: transparent;
+        border: 1px dashed var(--border);
+        border-radius: var(--radius-md);
+        padding: 9px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-sec);
+        cursor: pointer;
+        font-family: var(--font);
+        width: 100%;
+        transition:
+          background 0.1s,
+          color 0.1s;
+      }
+      .add-task-btn:hover {
+        background: var(--bg);
+        color: var(--text);
+      }
+      .add-task-btn i {
+        font-size: 15px;
+      }
+      .assignee-chips {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .chip {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-sec);
+        font-family: var(--font);
+        transition:
+          background 0.1s,
+          color 0.1s;
+      }
+      .chip:hover {
+        background: var(--bg);
+      }
+      .chip.selected {
+        background: var(--purple);
+        color: var(--purple-light);
+        border-color: var(--purple);
+      }
+      .chip.chip-other.selected {
+        background: var(--amber-dark);
+        color: var(--amber-light);
+        border-color: var(--amber-dark);
+      }
+      .other-name-wrap {
+        display: none;
+        margin-top: 8px;
+      }
+      .other-name-wrap input {
+        height: 34px;
+        font-size: 13px;
+      }
+
+      /* ── Submit row ── */
+      .submit-row {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 1.25rem;
+      }
+      .btn-reset {
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 10px 22px;
+        font-size: 14px;
+        cursor: pointer;
+        color: var(--text-sec);
+        font-family: var(--font);
+        font-weight: 500;
+        transition: background 0.1s;
+      }
+      .btn-reset:hover {
+        background: var(--bg);
+      }
+      .btn-submit {
+        background: var(--green);
+        border: none;
+        border-radius: var(--radius-md);
+        padding: 10px 30px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #fff;
+        font-family: var(--font);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.1s;
+      }
+      .btn-submit:hover {
+        background: var(--green-dark);
+      }
+      .btn-submit i {
+        font-size: 15px;
+      }
+      .notice {
+        font-size: 12px;
+        color: var(--text-sec);
+        margin-top: 8px;
+        text-align: right;
+      }
+
+      /* ── Toast ── */
+      .toast {
+        display: none;
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        background: var(--green);
+        color: #fff;
+        border-radius: var(--radius-md);
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid var(--green-dark);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        z-index: 999;
+      }
+      .toast.show {
+        display: block;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 500px) {
+        .row2,
+        .row3,
+        .card-grid,
+        .vas-grid,
+        .task-row-inner {
+          grid-template-columns: 1fr;
+        }
+        .metrics-bar,
+        .d2d-metrics {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="form-header">
+        <div class="logo-circle"><span>RM</span></div>
+        <div>
+          <h1>Daily Sales Entry</h1>
+          <p>Frontier Fiber &amp; Verizon — field rep daily report</p>
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="btn-sc" onclick="setMode('sc')">
+          <i class="ti ti-users"></i>Sales Center
+        </button>
+        <button class="mode-btn" id="btn-d2d" onclick="setMode('d2d')">
+          <i class="ti ti-door-enter"></i>D2D
+        </button>
+        <button class="mode-btn" id="btn-admin" onclick="setMode('admin')">
+          <i class="ti ti-shield"></i>Admin
+        </button>
+      </div>
+
+      <div class="section">
+        <div class="sec-title">
+          <i class="ti ti-user"></i> Rep info
+          <span class="mode-badge badge-sc" id="mode-label">Sales Center</span>
+        </div>
+        <div class="row2" style="margin-bottom: 12px">
+          <div class="field">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" placeholder="e.g. Maria" />
+          </div>
+          <div class="field">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" placeholder="e.g. Torres" />
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="edate">Date of entry</label>
+            <input type="date" id="edate" />
+          </div>
+          <div class="field" id="team-field">
+            <label for="team">Team</label>
+            <select id="team">
+              <option value="">— select —</option>
+              <option>Remote</option>
+              <option>Texas</option>
+              <option>Florida</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sec-title">
+          <i class="ti ti-clipboard-list"></i> Activity summary
+        </div>
+
+        <div id="sc-activity" class="row3">
+          <div class="field">
+            <label for="leads">Leads worked</label>
+            <input
+              type="number"
+              id="leads"
+              min="0"
+              placeholder="0"
+              oninput="calc()"
+            />
+          </div>
+          <div class="field">
+            <label for="closed">Total closed sales</label>
+            <input
+              type="number"
+              id="closed"
+              min="0"
+              placeholder="0"
+              oninput="calc()"
+            />
+          </div>
+          <div class="field">
+            <label for="vz_ref">Verizon referrals</label>
+            <input type="number" id="vz_ref" min="0" placeholder="0" />
+          </div>
+        </div>
+
+        <div id="d2d-activity" style="display: none">
+          <div class="row3" style="margin-bottom: 12px">
+            <div class="field">
+              <label for="d_doors">Doors knocked</label>
+              <input
+                type="number"
+                id="d_doors"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="d_calls">Outbound calls</label>
+              <input type="number" id="d_calls" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="d_sales">Total sales</label>
+              <input
+                type="number"
+                id="d_sales"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label for="d_appts">Appointments made</label>
+              <input
+                type="number"
+                id="d_appts"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="d_interact">Interactions made</label>
+              <input type="number" id="d_interact" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="d_vzappt">Verizon appt referrals</label>
+              <input type="number" id="d_vzappt" min="0" placeholder="0" />
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-activity" style="display: none">
+          <div class="row3" style="margin-bottom: 12px">
+            <div class="field">
+              <label for="a_leads">Leads worked</label>
+              <input
+                type="number"
+                id="a_leads"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="a_closed">Total closed sales</label>
+              <input
+                type="number"
+                id="a_closed"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="a_vz_ref">Verizon referrals</label>
+              <input type="number" id="a_vz_ref" min="0" placeholder="0" />
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label for="a_calls">Calls answered</label>
+              <input type="number" id="a_calls" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="a_orders">Orders written</label>
+              <input type="number" id="a_orders" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="a_scrubbed">Leads scrubbed</label>
+              <input type="number" id="a_scrubbed" min="0" placeholder="0" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="admin-tasks-section" style="display: none">
+        <div class="sec-title">
+          <i class="ti ti-list-check"></i> Additional responsibilities
+        </div>
+        <div class="task-list" id="task-list"></div>
+        <button class="add-task-btn" onclick="addTask()">
+          <i class="ti ti-plus"></i> Add responsibility
+        </button>
+      </div>
+
+      <div class="section">
+        <div class="sec-title"><i class="ti ti-home"></i> Internet sales</div>
+        <div class="sub-title">
+          <i class="ti ti-building-community"></i> Sale type
+        </div>
+        <div class="card-grid" style="margin-bottom: 1rem">
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">New Installs</div>
+              <div class="ccard-sub">Brand-new service</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('new_res', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="new_res-val"
+                value="0"
+                min="0"
+                oninput="manualSet('new_res', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('new_res', 1)">+</button>
+            </div>
+          </div>
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">Migration sales</div>
+              <div class="ccard-sub">Copper-to-fiber</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('migration', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="migration-val"
+                value="0"
+                min="0"
+                oninput="manualSet('migration', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('migration', 1)">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="sub-title"><i class="ti ti-wifi"></i> Speed tier</div>
+        <div class="card-grid">
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">500 Mbps &amp; under</div>
+              <div class="ccard-sub">Entry / mid-tier fiber</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('under500', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="under500-val"
+                value="0"
+                min="0"
+                oninput="manualSet('under500', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('under500', 1)">+</button>
+            </div>
+          </div>
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">1 Gig &amp; above</div>
+              <div class="ccard-sub">Gig+ / premium tier</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('gig1', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="gig1-val"
+                value="0"
+                min="0"
+                oninput="manualSet('gig1', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('gig1', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sec-title"><i class="ti ti-phone"></i> Home phone</div>
+        <div class="card-grid">
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">New home phones</div>
+              <div class="ccard-sub">First-time activation</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('new_phone', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="new_phone-val"
+                value="0"
+                min="0"
+                oninput="manualSet('new_phone', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('new_phone', 1)">+</button>
+            </div>
+          </div>
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">Existing home phones</div>
+              <div class="ccard-sub">Retained on account</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('exist_phone', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="exist_phone-val"
+                value="0"
+                min="0"
+                oninput="manualSet('exist_phone', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('exist_phone', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sec-title"><i class="ti ti-shield-check"></i> VAS sold</div>
+        <div class="vas-grid">
+          <div class="vi">
+            <div class="ccard-l">
+              <div class="ccard-label">Whole Home WiFi</div>
+              <div class="ccard-sub">WHW</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('whw', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="whw-val"
+                value="0"
+                min="0"
+                oninput="manualSet('whw', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('whw', 1)">+</button>
+            </div>
+          </div>
+          <div class="vi">
+            <div class="ccard-l">
+              <div class="ccard-label">WiFi Security</div>
+              <div class="ccard-sub">Standard</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('ws', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="ws-val"
+                value="0"
+                min="0"
+                oninput="manualSet('ws', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('ws', 1)">+</button>
+            </div>
+          </div>
+          <div class="vi">
+            <div class="ccard-l">
+              <div class="ccard-label">WiFi Security Plus</div>
+              <div class="ccard-sub">Enhanced protection</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('wsp', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="wsp-val"
+                value="0"
+                min="0"
+                oninput="manualSet('wsp', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('wsp', 1)">+</button>
+            </div>
+          </div>
+          <div class="vi">
+            <div class="ccard-l">
+              <div class="ccard-label">My Premium Tech Pro</div>
+              <div class="ccard-sub">Tech support</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('mpt', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="mpt-val"
+                value="0"
+                min="0"
+                oninput="manualSet('mpt', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('mpt', 1)">+</button>
+            </div>
+          </div>
+          <div class="vi">
+            <div class="ccard-l">
+              <div class="ccard-label">Unbreakable WiFi</div>
+              <div class="ccard-sub">UBW</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('ubw', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="ubw-val"
+                value="0"
+                min="0"
+                oninput="manualSet('ubw', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('ubw', 1)">+</button>
+            </div>
+          </div>
+          <div class="vi bund">
+            <div class="ccard-l">
+              <div class="ccard-label">
+                Netflix Bundle<span class="bbadge"
+                  ><i
+                    class="ti ti-layers-intersect"
+                    style="font-size: 10px"
+                  ></i>
+                  ×3</span
+                >
+              </div>
+              <div class="ccard-sub">Includes WHW + WiFi Security</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('nflx', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="nflx-val"
+                value="0"
+                min="0"
+                oninput="manualSet('nflx', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('nflx', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sec-title">
+          <i class="ti ti-device-tv"></i> TV &amp; wireless
+        </div>
+        <div class="card-grid">
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">YouTube TV</div>
+              <div class="ccard-sub">Sold today</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('ytv', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="ytv-val"
+                value="0"
+                min="0"
+                oninput="manualSet('ytv', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('ytv', 1)">+</button>
+            </div>
+          </div>
+          <div class="ccard">
+            <div class="ccard-l">
+              <div class="ccard-label">Verizon lines sold</div>
+              <div class="ccard-sub">Wireless lines closed</div>
+            </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('vz_lines', -1)">−</button>
+              <input
+                type="number"
+                class="qv-input"
+                id="vz_lines-val"
+                value="0"
+                min="0"
+                oninput="manualSet('vz_lines', this.value)"
+                onfocus="this.select()"
+              />
+              <button class="qb" onclick="adj('vz_lines', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section shaded">
+        <div class="sec-title">
+          <i class="ti ti-chart-bar"></i> Daily totals — auto-calculated
+        </div>
+
+        <div id="sc-metrics" class="metrics-bar">
+          <div class="mc">
+            <div class="ml">Total VAS</div>
+            <div class="mv hi" id="m-vas">0</div>
+          </div>
+          <div class="mc">
+            <div class="ml">VAS attach %</div>
+            <div class="mv hi" id="m-vas-rate">—</div>
+          </div>
+          <div class="mc">
+            <div class="ml">Gig+ sales</div>
+            <div class="mv" id="m-gig">0</div>
+          </div>
+          <div class="mc">
+            <div class="ml">Gig+ attach %</div>
+            <div class="mv wa" id="m-gig-rate">—</div>
+          </div>
+        </div>
+
+        <div id="d2d-metrics" style="display: none">
+          <div class="d2d-metrics" style="margin-bottom: 10px">
+            <div class="mc">
+              <div class="ml">Total VAS</div>
+              <div class="mv hi" id="d-m-vas">0</div>
+            </div>
+            <div class="mc">
+              <div class="ml">VAS attach %</div>
+              <div class="mv hi" id="d-m-vas-rate">—</div>
+            </div>
+            <div class="mc">
+              <div class="ml">Gig+ attach %</div>
+              <div class="mv wa" id="d-m-gig-rate">—</div>
+            </div>
+          </div>
+          <div class="d2d-metrics">
+            <div class="mc">
+              <div class="ml">Doors → sales %</div>
+              <div class="mv bl" id="d-m-close">—</div>
+            </div>
+            <div class="mc">
+              <div class="ml">Gig+ sales</div>
+              <div class="mv" id="d-m-gig">0</div>
+            </div>
+            <div class="mc">
+              <div class="ml">Appts made</div>
+              <div class="mv" id="d-m-appts">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-note">
+          <i class="ti ti-info-circle"></i> Netflix Bundle counts as 3 VAS units
+          (Netflix + Whole Home WiFi + WiFi Security). VAS attach = total VAS ÷
+          closed sales.
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn-reset" onclick="resetForm()">Clear form</button>
+        <button class="btn-submit" onclick="submitForm()">
+          <i class="ti ti-check"></i> Submit entry
+        </button>
+      </div>
+      <p class="notice">
+        Entries submitted for manager review. Contact your admin with any
+        corrections.
+      </p>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+      var mode = "sc";
+      var taskCount = 0;
+      var counts = {
+        new_res: 0,
+        migration: 0,
+        under500: 0,
+        gig1: 0,
+        new_phone: 0,
+        exist_phone: 0,
+        whw: 0,
+        ws: 0,
+        wsp: 0,
+        mpt: 0,
+        ubw: 0,
+        nflx: 0,
+        ytv: 0,
+        vz_lines: 0,
+      };
+
+      var teamOptions = {
+        sc: '<option value="">— select —</option><option>Remote</option><option>Texas</option><option>Florida</option>',
+        d2d: "<option value=\"\">— select —</option><option>Independent Rep</option><option>Stephen's Team</option><option>Houston's Team</option>",
+      };
+
+      var modeLabels = {
+        sc: { text: "Sales Center", cls: "badge-sc" },
+        d2d: { text: "D2D", cls: "badge-d2d" },
+        admin: { text: "Admin", cls: "badge-admin" },
+      };
+
+      var assignees = ["Toni", "Meagan", "Brent", "Other leadership member"];
+
+      function setMode(m) {
+        mode = m;
+        ["sc", "d2d", "admin"].forEach(function (x) {
+          document
+            .getElementById("btn-" + x)
+            .classList.toggle("active", x === m);
+        });
+        document.getElementById("sc-activity").style.display =
+          m === "sc" ? "grid" : "none";
+        document.getElementById("d2d-activity").style.display =
+          m === "d2d" ? "block" : "none";
+        document.getElementById("admin-activity").style.display =
+          m === "admin" ? "block" : "none";
+        document.getElementById("admin-tasks-section").style.display =
+          m === "admin" ? "block" : "none";
+        document.getElementById("sc-metrics").style.display =
+          m === "d2d" ? "none" : "grid";
+        document.getElementById("d2d-metrics").style.display =
+          m === "d2d" ? "block" : "none";
+
+        var tf = document.getElementById("team-field");
+        var lbl = document.getElementById("mode-label");
+        var ml = modeLabels[m];
+        lbl.textContent = ml.text;
+        lbl.className = "mode-badge " + ml.cls;
+
+        if (m === "admin") {
+          tf.style.display = "none";
+        } else {
+          tf.style.display = "flex";
+          document.getElementById("team").innerHTML = teamOptions[m];
+        }
+        calc();
+      }
+
+      // Handle the button clicks
+      function adj(key, delta) {
+        counts[key] = Math.max(0, counts[key] + delta);
+        document.getElementById(key + "-val").value = counts[key];
+        calc();
+      }
+
+      // Handle direct keyboard input
+      function manualSet(key, val) {
+        var parsed = parseInt(val);
+        // If they clear it out or type a negative, default to 0 so math doesn't break
+        counts[key] = isNaN(parsed) || parsed < 0 ? 0 : parsed;
+        calc();
+      }
+
+      function calc() {
+        var vas =
+          counts.whw +
+          counts.ws +
+          counts.wsp +
+          counts.mpt +
+          counts.ubw +
+          counts.nflx * 3;
+        var gig = counts.gig1;
+
+        if (mode === "d2d") {
+          var sales = parseInt(document.getElementById("d_sales").value) || 0;
+          var doors = parseInt(document.getElementById("d_doors").value) || 0;
+          var appts = parseInt(document.getElementById("d_appts").value) || 0;
+          document.getElementById("d-m-vas").textContent = vas;
+          document.getElementById("d-m-gig").textContent = gig;
+          document.getElementById("d-m-appts").textContent = appts;
+          document.getElementById("d-m-vas-rate").textContent =
+            sales > 0 ? Math.round((vas / sales) * 100) + "%" : "—";
+          document.getElementById("d-m-gig-rate").textContent =
+            sales > 0 ? Math.round((gig / sales) * 100) + "%" : "—";
+          document.getElementById("d-m-close").textContent =
+            doors > 0 ? Math.round((sales / doors) * 100) + "%" : "—";
+        } else {
+          var closed =
+            mode === "admin"
+              ? parseInt(document.getElementById("a_closed").value) || 0
+              : parseInt(document.getElementById("closed").value) || 0;
+          document.getElementById("m-vas").textContent = vas;
+          document.getElementById("m-gig").textContent = gig;
+          document.getElementById("m-vas-rate").textContent =
+            closed > 0 ? Math.round((vas / closed) * 100) + "%" : "—";
+          document.getElementById("m-gig-rate").textContent =
+            closed > 0 ? Math.round((gig / closed) * 100) + "%" : "—";
+        }
+      }
+
+      function addTask() {
+        taskCount++;
+        var id = "task-" + taskCount;
+        var tid = taskCount;
+        var div = document.createElement("div");
+        div.className = "task-row";
+        div.id = id;
+        div.innerHTML =
+          '<div style="flex:1;min-width:0;">' +
+          '<div class="task-row-inner">' +
+          '<div class="field">' +
+          '<label style="font-size:12px;color:var(--text-sec);font-weight:500;">Responsibility</label>' +
+          '<textarea placeholder="Describe the task or responsibility assigned..."></textarea>' +
+          "</div>" +
+          '<div class="field">' +
+          '<label style="font-size:12px;color:var(--text-sec);font-weight:500;">Assigned by</label>' +
+          '<div class="assignee-chips" id="chips-' +
+          tid +
+          '">' +
+          assignees
+            .map(function (a, i) {
+              var isOther = i === assignees.length - 1;
+              return (
+                '<button class="chip' +
+                (isOther ? " chip-other" : "") +
+                '" onclick="selectChip(' +
+                tid +
+                "," +
+                i +
+                "," +
+                isOther +
+                ',this)">' +
+                a +
+                "</button>"
+              );
+            })
+            .join("") +
+          "</div>" +
+          '<div class="other-name-wrap" id="other-wrap-' +
+          tid +
+          '">' +
+          '<input type="text" placeholder="Enter leadership member name...">' +
+          "</div>" +
+          "</div>" +
+          "</div>" +
+          "</div>" +
+          '<button class="task-remove" onclick="removeTask(\'' +
+          id +
+          '\')" aria-label="Remove responsibility">' +
+          '<i class="ti ti-x" style="font-size:14px;pointer-events:none;"></i>' +
+          "</button>";
+        document.getElementById("task-list").appendChild(div);
+      }
+
+      function selectChip(taskId, idx, isOther, btn) {
+        var chips = document
+          .getElementById("chips-" + taskId)
+          .querySelectorAll(".chip");
+        chips.forEach(function (c) {
+          c.classList.remove("selected");
+        });
+        btn.classList.add("selected");
+        document.getElementById("other-wrap-" + taskId).style.display = isOther
+          ? "block"
+          : "none";
+      }
+
+      function removeTask(id) {
+        var el = document.getElementById(id);
+        if (el) el.parentNode.removeChild(el);
+      }
+
+      function resetForm() {
+        [
+          "fname",
+          "lname",
+          "edate",
+          "leads",
+          "closed",
+          "vz_ref",
+          "a_leads",
+          "a_closed",
+          "a_vz_ref",
+          "a_calls",
+          "a_orders",
+          "a_scrubbed",
+          "d_doors",
+          "d_calls",
+          "d_sales",
+          "d_appts",
+          "d_interact",
+          "d_vzappt",
+        ].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.value = "";
+        });
+
+        var ts = document.getElementById("team");
+        if (ts) ts.value = "";
+
+        // Reset counters UI and logic arrays
+        Object.keys(counts).forEach(function (k) {
+          counts[k] = 0;
+          document.getElementById(k + "-val").value = "0";
+        });
+
+        document.getElementById("task-list").innerHTML = "";
+        taskCount = 0;
+        calc();
+        document.getElementById("edate").value = new Date()
+          .toISOString()
+          .split("T")[0];
+      }
+
+      async function submitForm() {
+        var fname = document.getElementById("fname").value.trim();
+        var lname = document.getElementById("lname").value.trim();
+        var edate = document.getElementById("edate").value;
+
+        var salesEl =
+          mode === "admin"
+            ? document.getElementById("a_closed")
+            : mode === "d2d"
+              ? document.getElementById("d_sales")
+              : document.getElementById("closed");
+
+        if (!fname || !lname || !edate || !salesEl.value) {
+          alert(
+            "Please fill in first name, last name, date, and total sales before submitting.",
+          );
+          return;
+        }
+
+        var teamEl = document.getElementById("team");
+        var teamVal =
+          teamEl && teamEl.style.display !== "none" ? teamEl.value : "Admin";
+
+        // Scrape the dynamic Admin tasks
+        var adminTasks = [];
+        if (mode === "admin") {
+          var taskRows = document.querySelectorAll("#task-list .task-row");
+          taskRows.forEach(function (row) {
+            var desc = row.querySelector("textarea").value;
+            var selectedChip = row.querySelector(".chip.selected");
+            var assignedBy = selectedChip
+              ? selectedChip.textContent
+              : "Unassigned";
+
+            if (selectedChip && selectedChip.classList.contains("chip-other")) {
+              var otherInput = row.querySelector(
+                ".other-name-wrap input",
+              ).value;
+              assignedBy = otherInput || "Other (unspecified)";
+            }
+
+            if (desc) {
+              adminTasks.push({ task: desc, assignedBy: assignedBy });
+            }
+          });
+        }
+
+        var calculatedVas =
+          counts.whw +
+          counts.ws +
+          counts.wsp +
+          counts.mpt +
+          counts.ubw +
+          counts.nflx * 3;
+
+        var payload = {
+          repName: fname + " " + lname,
+          date: edate,
+          team: teamVal,
+          division: mode,
+          activity: {
+            totalSales: parseInt(salesEl.value) || 0,
+            leadsWorked:
+              parseInt(document.getElementById("leads").value) ||
+              parseInt(document.getElementById("a_leads").value) ||
+              0,
+            vzRefs: parseInt(document.getElementById("vz_ref").value) || 0,
+            doorsKnocked:
+              parseInt(document.getElementById("d_doors").value) || 0,
+            outboundCalls:
+              parseInt(document.getElementById("d_calls").value) || 0,
+            apptsMade: parseInt(document.getElementById("d_appts").value) || 0,
+            interactions:
+              parseInt(document.getElementById("d_interact").value) || 0,
+            vzApptRefs:
+              parseInt(document.getElementById("d_vzappt").value) || 0,
+            callsAnswered:
+              parseInt(document.getElementById("a_calls").value) || 0,
+            ordersWritten:
+              parseInt(document.getElementById("a_orders").value) || 0,
+            leadsScrubbed:
+              parseInt(document.getElementById("a_scrubbed").value) || 0,
+          },
+          products: {
+            newResi: counts.new_res,
+            migrations: counts.migration,
+            speedUnder500: counts.under500,
+            speedGigPlus: counts.gig1,
+            newPhone: counts.new_phone,
+            existPhone: counts.exist_phone,
+            totalVas: calculatedVas,
+            youtubeTv: counts.ytv,
+            vzLines: counts.vz_lines,
+          },
+          additionalTasks: adminTasks,
+        };
+
+        var powerAutomateWebhookUrl =
+          "https://default39e141900b234ecd99f9606ad12158.81.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/ca0597b8ada64010b5169a480e50033c/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m0rBl61BkRFVq1WX71cRhF0sRpcZxndxVPXuzyZvyuA";
+
+        try {
+          var submitBtn = document.querySelector(".btn-submit");
+          var originalBtnHTML = submitBtn.innerHTML;
+          submitBtn.innerHTML =
+            "<i class='ti ti-loader' style='animation: spin 1s linear infinite;'></i> Sending...";
+          submitBtn.disabled = true;
+
+          const response = await fetch(powerAutomateWebhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (response.ok) {
+            var t = document.getElementById("toast");
+            t.textContent =
+              fname + " " + lname + " · " + teamVal + " — entry submitted!";
+            t.classList.add("show");
+            setTimeout(function () {
+              t.classList.remove("show");
+            }, 3500);
+            resetForm();
+          } else {
+            alert("There was an issue submitting the form. Please try again.");
+          }
+        } catch (error) {
+          console.error("Submission failed", error);
+          alert("Network error. Please check your connection.");
+        } finally {
+          submitBtn.innerHTML = originalBtnHTML;
+          submitBtn.disabled = false;
+        }
+      }
+
+      document.getElementById("edate").value = new Date()
+        .toISOString()
+        .split("T")[0];
+    </script>
+    <style>
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </body>
 </html>
