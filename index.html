@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Raimak — Daily Sales Entry</title>
+    <title>Raimak - Daily Sales Entry</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"
@@ -53,7 +53,7 @@
         margin: 0 auto;
       }
 
-      /* ── Header ── */
+      /* Header */
       .form-header {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -90,7 +90,7 @@
         margin-top: 2px;
       }
 
-      /* ── Mode toggle ── */
+      /* Mode Indicators */
       .mode-toggle {
         display: flex;
         background: var(--bg-card);
@@ -102,16 +102,16 @@
       }
       .mode-btn {
         flex: 1;
-        padding: 9px 8px;
+        padding: 9px 4px;
         border: none;
         border-radius: 10px;
         font-size: 13px;
         font-weight: 500;
-        cursor: pointer;
         font-family: var(--font);
         background: transparent;
         color: var(--text-sec);
         white-space: nowrap;
+        pointer-events: none;
         transition:
           background 0.15s,
           color 0.15s;
@@ -127,7 +127,7 @@
         margin-right: 4px;
       }
 
-      /* ── Section cards ── */
+      /* Section cards */
       .section {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -167,7 +167,7 @@
         font-size: 13px;
       }
 
-      /* ── Fields ── */
+      /* Fields */
       .row2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -219,13 +219,22 @@
         border-color: var(--green-mid);
         box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.15);
       }
+      input[readonly] {
+        background: var(--bg);
+        color: var(--text-sec);
+        cursor: not-allowed;
+      }
+      input[readonly]:focus {
+        border-color: var(--border);
+        box-shadow: none;
+      }
       .divider {
         height: 1px;
         background: var(--border-light);
         margin: 1rem 0;
       }
 
-      /* ── Counter cards (Upgraded UI) ── */
+      /* Counter cards */
       .card-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -288,7 +297,6 @@
         background: var(--border);
       }
 
-      /* Typeable Incrementor Field */
       .qv-input {
         width: 44px;
         height: 32px;
@@ -309,18 +317,16 @@
         background: var(--bg-card);
         border-color: var(--green-mid);
       }
-      /* Hide arrows for Chrome, Safari, Edge, Opera */
       .qv-input::-webkit-outer-spin-button,
       .qv-input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
-      /* Hide arrows for Firefox */
       .qv-input[type="number"] {
         -moz-appearance: textfield;
       }
 
-      /* ── VAS grid ── */
+      /* VAS grid */
       .vas-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -366,7 +372,7 @@
         vertical-align: middle;
       }
 
-      /* ── Metrics ── */
+      /* Metrics */
       .metrics-bar {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -423,7 +429,7 @@
         color: var(--green);
       }
 
-      /* ── Mode badges ── */
+      /* Mode badges */
       .mode-badge {
         display: inline-flex;
         align-items: center;
@@ -446,8 +452,12 @@
         background: var(--purple-light);
         color: var(--purple);
       }
+      .badge-kinetic {
+        background: var(--amber-light);
+        color: var(--amber-dark);
+      }
 
-      /* ── Admin tasks ── */
+      /* Admin & Kinetic Tasks */
       .task-list {
         display: flex;
         flex-direction: column;
@@ -560,7 +570,7 @@
         font-size: 13px;
       }
 
-      /* ── Submit row ── */
+      /* Submit row */
       .submit-row {
         display: flex;
         justify-content: flex-end;
@@ -610,7 +620,7 @@
         text-align: right;
       }
 
-      /* ── Toast ── */
+      /* Toast */
       .toast {
         display: none;
         position: fixed;
@@ -630,7 +640,6 @@
         display: block;
       }
 
-      /* ── Responsive ── */
       @media (max-width: 500px) {
         .row2,
         .row3,
@@ -652,54 +661,59 @@
         <div class="logo-circle"><span>RM</span></div>
         <div>
           <h1>Daily Sales Entry</h1>
-          <p>Frontier Fiber &amp; Verizon — field rep daily report</p>
+          <p>Frontier Fiber &amp; Verizon - field rep daily report</p>
         </div>
       </div>
 
       <div class="mode-toggle">
-        <button class="mode-btn active" id="btn-sc" onclick="setMode('sc')">
+        <button class="mode-btn active" id="btn-sc" type="button">
           <i class="ti ti-users"></i>Sales Center
         </button>
-        <button class="mode-btn" id="btn-d2d" onclick="setMode('d2d')">
+        <button class="mode-btn" id="btn-d2d" type="button">
           <i class="ti ti-door-enter"></i>D2D
         </button>
-        <button class="mode-btn" id="btn-admin" onclick="setMode('admin')">
+        <button class="mode-btn" id="btn-admin" type="button">
           <i class="ti ti-shield"></i>Admin
+        </button>
+        <button class="mode-btn" id="btn-kinetic" type="button">
+          <i class="ti ti-bolt"></i>Kinetic
         </button>
       </div>
 
+      <!-- REP INFO -->
       <div class="section">
         <div class="sec-title">
           <i class="ti ti-user"></i> Rep info
           <span class="mode-badge badge-sc" id="mode-label">Sales Center</span>
         </div>
+
         <div class="row2" style="margin-bottom: 12px">
-          <div class="field">
-            <label for="fname">First name</label>
-            <input type="text" id="fname" placeholder="e.g. Maria" />
-          </div>
-          <div class="field">
-            <label for="lname">Last name</label>
-            <input type="text" id="lname" placeholder="e.g. Torres" />
+          <div class="field" style="grid-column: span 2">
+            <label for="agent-select">Agent Name</label>
+            <select id="agent-select" onchange="handleAgentSelect()">
+              <option value="">- select your name -</option>
+            </select>
           </div>
         </div>
+
         <div class="row2">
           <div class="field">
             <label for="edate">Date of entry</label>
             <input type="date" id="edate" />
           </div>
           <div class="field" id="team-field">
-            <label for="team">Team</label>
-            <select id="team">
-              <option value="">— select —</option>
-              <option>Remote</option>
-              <option>Texas</option>
-              <option>Florida</option>
-            </select>
+            <label for="team">Assigned Team</label>
+            <input
+              type="text"
+              id="team"
+              readonly
+              placeholder="Auto-fills based on name selection"
+            />
           </div>
         </div>
       </div>
 
+      <!-- ACTIVITY SUMMARY -->
       <div class="section">
         <div class="sec-title">
           <i class="ti ti-clipboard-list"></i> Activity summary
@@ -823,8 +837,52 @@
             </div>
           </div>
         </div>
+
+        <div id="kinetic-activity" style="display: none">
+          <div class="row3" style="margin-bottom: 12px">
+            <div class="field">
+              <label for="k_leads">Leads worked</label>
+              <input
+                type="number"
+                id="k_leads"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="k_closed">Total closed sales</label>
+              <input
+                type="number"
+                id="k_closed"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="k_vz_ref">Verizon referrals</label>
+              <input type="number" id="k_vz_ref" min="0" placeholder="0" />
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label for="k_calls">Calls answered</label>
+              <input type="number" id="k_calls" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="k_orders">Orders written</label>
+              <input type="number" id="k_orders" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="k_scrubbed">Leads scrubbed</label>
+              <input type="number" id="k_scrubbed" min="0" placeholder="0" />
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- ADDITIONAL RESPONSIBILITIES -->
       <div class="section" id="admin-tasks-section" style="display: none">
         <div class="sec-title">
           <i class="ti ti-list-check"></i> Additional responsibilities
@@ -835,6 +893,7 @@
         </button>
       </div>
 
+      <!-- INTERNET SALES -->
       <div class="section">
         <div class="sec-title"><i class="ti ti-home"></i> Internet sales</div>
         <div class="sub-title">
@@ -847,7 +906,7 @@
               <div class="ccard-sub">Brand-new service</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('new_res', -1)">−</button>
+              <button class="qb" onclick="adj('new_res', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -866,7 +925,7 @@
               <div class="ccard-sub">Copper-to-fiber</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('migration', -1)">−</button>
+              <button class="qb" onclick="adj('migration', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -889,7 +948,7 @@
               <div class="ccard-sub">Entry / mid-tier fiber</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('under500', -1)">−</button>
+              <button class="qb" onclick="adj('under500', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -908,7 +967,7 @@
               <div class="ccard-sub">Gig+ / premium tier</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('gig1', -1)">−</button>
+              <button class="qb" onclick="adj('gig1', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -924,6 +983,7 @@
         </div>
       </div>
 
+      <!-- HOME PHONE -->
       <div class="section">
         <div class="sec-title"><i class="ti ti-phone"></i> Home phone</div>
         <div class="card-grid">
@@ -933,7 +993,7 @@
               <div class="ccard-sub">First-time activation</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('new_phone', -1)">−</button>
+              <button class="qb" onclick="adj('new_phone', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -952,7 +1012,7 @@
               <div class="ccard-sub">Retained on account</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('exist_phone', -1)">−</button>
+              <button class="qb" onclick="adj('exist_phone', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -968,6 +1028,7 @@
         </div>
       </div>
 
+      <!-- VAS -->
       <div class="section">
         <div class="sec-title"><i class="ti ti-shield-check"></i> VAS sold</div>
         <div class="vas-grid">
@@ -977,7 +1038,7 @@
               <div class="ccard-sub">WHW</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('whw', -1)">−</button>
+              <button class="qb" onclick="adj('whw', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -996,7 +1057,7 @@
               <div class="ccard-sub">Standard</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('ws', -1)">−</button>
+              <button class="qb" onclick="adj('ws', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1015,7 +1076,7 @@
               <div class="ccard-sub">Enhanced protection</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('wsp', -1)">−</button>
+              <button class="qb" onclick="adj('wsp', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1034,7 +1095,7 @@
               <div class="ccard-sub">Tech support</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('mpt', -1)">−</button>
+              <button class="qb" onclick="adj('mpt', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1053,7 +1114,7 @@
               <div class="ccard-sub">UBW</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('ubw', -1)">−</button>
+              <button class="qb" onclick="adj('ubw', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1080,7 +1141,7 @@
               <div class="ccard-sub">Includes WHW + WiFi Security</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('nflx', -1)">−</button>
+              <button class="qb" onclick="adj('nflx', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1096,6 +1157,7 @@
         </div>
       </div>
 
+      <!-- TV & WIRELESS -->
       <div class="section">
         <div class="sec-title">
           <i class="ti ti-device-tv"></i> TV &amp; wireless
@@ -1107,7 +1169,7 @@
               <div class="ccard-sub">Sold today</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('ytv', -1)">−</button>
+              <button class="qb" onclick="adj('ytv', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1126,7 +1188,7 @@
               <div class="ccard-sub">Wireless lines closed</div>
             </div>
             <div class="qw">
-              <button class="qb" onclick="adj('vz_lines', -1)">−</button>
+              <button class="qb" onclick="adj('vz_lines', -1)">-</button>
               <input
                 type="number"
                 class="qv-input"
@@ -1142,9 +1204,10 @@
         </div>
       </div>
 
+      <!-- DAILY TOTALS -->
       <div class="section shaded">
         <div class="sec-title">
-          <i class="ti ti-chart-bar"></i> Daily totals — auto-calculated
+          <i class="ti ti-chart-bar"></i> Daily totals - auto-calculated
         </div>
 
         <div id="sc-metrics" class="metrics-bar">
@@ -1154,7 +1217,7 @@
           </div>
           <div class="mc">
             <div class="ml">VAS attach %</div>
-            <div class="mv hi" id="m-vas-rate">—</div>
+            <div class="mv hi" id="m-vas-rate">-</div>
           </div>
           <div class="mc">
             <div class="ml">Gig+ sales</div>
@@ -1162,7 +1225,7 @@
           </div>
           <div class="mc">
             <div class="ml">Gig+ attach %</div>
-            <div class="mv wa" id="m-gig-rate">—</div>
+            <div class="mv wa" id="m-gig-rate">-</div>
           </div>
         </div>
 
@@ -1174,17 +1237,17 @@
             </div>
             <div class="mc">
               <div class="ml">VAS attach %</div>
-              <div class="mv hi" id="d-m-vas-rate">—</div>
+              <div class="mv hi" id="d-m-vas-rate">-</div>
             </div>
             <div class="mc">
               <div class="ml">Gig+ attach %</div>
-              <div class="mv wa" id="d-m-gig-rate">—</div>
+              <div class="mv wa" id="d-m-gig-rate">-</div>
             </div>
           </div>
           <div class="d2d-metrics">
             <div class="mc">
-              <div class="ml">Doors → sales %</div>
-              <div class="mv bl" id="d-m-close">—</div>
+              <div class="ml">Doors -> sales %</div>
+              <div class="mv bl" id="d-m-close">-</div>
             </div>
             <div class="mc">
               <div class="ml">Gig+ sales</div>
@@ -1215,7 +1278,10 @@
         corrections.
       </p>
     </div>
+
     <div class="toast" id="toast"></div>
+
+    <script src="config.js"></script>
 
     <script>
       var mode = "sc";
@@ -1237,65 +1303,83 @@
         vz_lines: 0,
       };
 
-      var teamOptions = {
-        sc: '<option value="">— select —</option><option>Remote</option><option>Texas</option><option>Florida</option>',
-        d2d: "<option value=\"\">— select —</option><option>Independent Rep</option><option>Stephen's Team</option><option>Houston's Team</option>",
-      };
-
       var modeLabels = {
         sc: { text: "Sales Center", cls: "badge-sc" },
         d2d: { text: "D2D", cls: "badge-d2d" },
         admin: { text: "Admin", cls: "badge-admin" },
+        kinetic: { text: "Kinetic", cls: "badge-kinetic" },
       };
 
       var assignees = ["Toni", "Meagan", "Brent", "Other leadership member"];
 
+      function initDirectory() {
+        const select = document.getElementById("agent-select");
+
+        agentDirectory.sort(function (a, b) {
+          return a.name.localeCompare(b.name);
+        });
+
+        agentDirectory.forEach(function (agent) {
+          let opt = document.createElement("option");
+          opt.value = agent.name;
+          opt.textContent = agent.name;
+          select.appendChild(opt);
+        });
+      }
+
+      function handleAgentSelect() {
+        const selectedName = document.getElementById("agent-select").value;
+        const agent = agentDirectory.find(function (a) {
+          return a.name === selectedName;
+        });
+
+        if (agent) {
+          setMode(agent.mode);
+          document.getElementById("team").value = agent.team;
+        } else {
+          document.getElementById("team").value = "";
+        }
+      }
+
       function setMode(m) {
         mode = m;
-        ["sc", "d2d", "admin"].forEach(function (x) {
+        ["sc", "d2d", "admin", "kinetic"].forEach(function (x) {
           document
             .getElementById("btn-" + x)
             .classList.toggle("active", x === m);
         });
+
         document.getElementById("sc-activity").style.display =
           m === "sc" ? "grid" : "none";
         document.getElementById("d2d-activity").style.display =
           m === "d2d" ? "block" : "none";
         document.getElementById("admin-activity").style.display =
           m === "admin" ? "block" : "none";
+        document.getElementById("kinetic-activity").style.display =
+          m === "kinetic" ? "block" : "none";
         document.getElementById("admin-tasks-section").style.display =
-          m === "admin" ? "block" : "none";
+          m === "admin" || m === "kinetic" ? "block" : "none";
         document.getElementById("sc-metrics").style.display =
           m === "d2d" ? "none" : "grid";
         document.getElementById("d2d-metrics").style.display =
           m === "d2d" ? "block" : "none";
 
-        var tf = document.getElementById("team-field");
         var lbl = document.getElementById("mode-label");
         var ml = modeLabels[m];
         lbl.textContent = ml.text;
         lbl.className = "mode-badge " + ml.cls;
 
-        if (m === "admin") {
-          tf.style.display = "none";
-        } else {
-          tf.style.display = "flex";
-          document.getElementById("team").innerHTML = teamOptions[m];
-        }
         calc();
       }
 
-      // Handle the button clicks
       function adj(key, delta) {
         counts[key] = Math.max(0, counts[key] + delta);
         document.getElementById(key + "-val").value = counts[key];
         calc();
       }
 
-      // Handle direct keyboard input
       function manualSet(key, val) {
         var parsed = parseInt(val);
-        // If they clear it out or type a negative, default to 0 so math doesn't break
         counts[key] = isNaN(parsed) || parsed < 0 ? 0 : parsed;
         calc();
       }
@@ -1318,22 +1402,24 @@
           document.getElementById("d-m-gig").textContent = gig;
           document.getElementById("d-m-appts").textContent = appts;
           document.getElementById("d-m-vas-rate").textContent =
-            sales > 0 ? Math.round((vas / sales) * 100) + "%" : "—";
+            sales > 0 ? Math.round((vas / sales) * 100) + "%" : "-";
           document.getElementById("d-m-gig-rate").textContent =
-            sales > 0 ? Math.round((gig / sales) * 100) + "%" : "—";
+            sales > 0 ? Math.round((gig / sales) * 100) + "%" : "-";
           document.getElementById("d-m-close").textContent =
-            doors > 0 ? Math.round((sales / doors) * 100) + "%" : "—";
+            doors > 0 ? Math.round((sales / doors) * 100) + "%" : "-";
         } else {
           var closed =
             mode === "admin"
               ? parseInt(document.getElementById("a_closed").value) || 0
-              : parseInt(document.getElementById("closed").value) || 0;
+              : mode === "kinetic"
+                ? parseInt(document.getElementById("k_closed").value) || 0
+                : parseInt(document.getElementById("closed").value) || 0;
           document.getElementById("m-vas").textContent = vas;
           document.getElementById("m-gig").textContent = gig;
           document.getElementById("m-vas-rate").textContent =
-            closed > 0 ? Math.round((vas / closed) * 100) + "%" : "—";
+            closed > 0 ? Math.round((vas / closed) * 100) + "%" : "-";
           document.getElementById("m-gig-rate").textContent =
-            closed > 0 ? Math.round((gig / closed) * 100) + "%" : "—";
+            closed > 0 ? Math.round((gig / closed) * 100) + "%" : "-";
         }
       }
 
@@ -1411,8 +1497,8 @@
 
       function resetForm() {
         [
-          "fname",
-          "lname",
+          "agent-select",
+          "team",
           "edate",
           "leads",
           "closed",
@@ -1429,15 +1515,17 @@
           "d_appts",
           "d_interact",
           "d_vzappt",
+          "k_leads",
+          "k_closed",
+          "k_vz_ref",
+          "k_calls",
+          "k_orders",
+          "k_scrubbed",
         ].forEach(function (id) {
           var el = document.getElementById(id);
           if (el) el.value = "";
         });
 
-        var ts = document.getElementById("team");
-        if (ts) ts.value = "";
-
-        // Reset counters UI and logic arrays
         Object.keys(counts).forEach(function (k) {
           counts[k] = 0;
           document.getElementById(k + "-val").value = "0";
@@ -1452,31 +1540,29 @@
       }
 
       async function submitForm() {
-        var fname = document.getElementById("fname").value.trim();
-        var lname = document.getElementById("lname").value.trim();
+        var repName = document.getElementById("agent-select").value;
         var edate = document.getElementById("edate").value;
 
         var salesEl =
           mode === "admin"
             ? document.getElementById("a_closed")
-            : mode === "d2d"
-              ? document.getElementById("d_sales")
-              : document.getElementById("closed");
+            : mode === "kinetic"
+              ? document.getElementById("k_closed")
+              : mode === "d2d"
+                ? document.getElementById("d_sales")
+                : document.getElementById("closed");
 
-        if (!fname || !lname || !edate || !salesEl.value) {
+        if (!repName || !edate || !salesEl.value) {
           alert(
-            "Please fill in first name, last name, date, and total sales before submitting.",
+            "Please select your name, enter the date, and input total sales before submitting.",
           );
           return;
         }
 
-        var teamEl = document.getElementById("team");
-        var teamVal =
-          teamEl && teamEl.style.display !== "none" ? teamEl.value : "Admin";
+        var teamVal = document.getElementById("team").value;
 
-        // Scrape the dynamic Admin tasks
         var adminTasks = [];
-        if (mode === "admin") {
+        if (mode === "admin" || mode === "kinetic") {
           var taskRows = document.querySelectorAll("#task-list .task-row");
           taskRows.forEach(function (row) {
             var desc = row.querySelector("textarea").value;
@@ -1507,7 +1593,7 @@
           counts.nflx * 3;
 
         var payload = {
-          repName: fname + " " + lname,
+          repName: repName,
           date: edate,
           team: teamVal,
           division: mode,
@@ -1516,8 +1602,13 @@
             leadsWorked:
               parseInt(document.getElementById("leads").value) ||
               parseInt(document.getElementById("a_leads").value) ||
+              parseInt(document.getElementById("k_leads").value) ||
               0,
-            vzRefs: parseInt(document.getElementById("vz_ref").value) || 0,
+            vzRefs:
+              parseInt(document.getElementById("vz_ref").value) ||
+              parseInt(document.getElementById("a_vz_ref").value) ||
+              parseInt(document.getElementById("k_vz_ref").value) ||
+              0,
             doorsKnocked:
               parseInt(document.getElementById("d_doors").value) || 0,
             outboundCalls:
@@ -1528,11 +1619,17 @@
             vzApptRefs:
               parseInt(document.getElementById("d_vzappt").value) || 0,
             callsAnswered:
-              parseInt(document.getElementById("a_calls").value) || 0,
+              parseInt(document.getElementById("a_calls").value) ||
+              parseInt(document.getElementById("k_calls").value) ||
+              0,
             ordersWritten:
-              parseInt(document.getElementById("a_orders").value) || 0,
+              parseInt(document.getElementById("a_orders").value) ||
+              parseInt(document.getElementById("k_orders").value) ||
+              0,
             leadsScrubbed:
-              parseInt(document.getElementById("a_scrubbed").value) || 0,
+              parseInt(document.getElementById("a_scrubbed").value) ||
+              parseInt(document.getElementById("k_scrubbed").value) ||
+              0,
           },
           products: {
             newResi: counts.new_res,
@@ -1566,8 +1663,7 @@
 
           if (response.ok) {
             var t = document.getElementById("toast");
-            t.textContent =
-              fname + " " + lname + " · " + teamVal + " — entry submitted!";
+            t.textContent = repName + " · " + teamVal + " entry submitted!";
             t.classList.add("show");
             setTimeout(function () {
               t.classList.remove("show");
@@ -1585,6 +1681,7 @@
         }
       }
 
+      initDirectory();
       document.getElementById("edate").value = new Date()
         .toISOString()
         .split("T")[0];
