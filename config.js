@@ -78,3 +78,4 @@ const agentDirectory = [
   // --- KINETIC: INDEPENDENT CONTRACTORS ---
   { name: "Marketing Contractors", team: "Independent Contractor", mode: "kinetic" }
 ];
+// forcing a new deployment
