@@ -8,7 +8,7 @@ const agentDirectory = [
   // --- FLORIDA SALES CENTER ---
   { name: "Noah Caldwell", team: "Florida", mode: "sc" },
   { name: "Kenny Leroux", team: "Florida", mode: "sc" },
-  { name: "Angelica", team: "Florida", mode: "sc" },
+  { name: "Angelica Gonzales", team: "Florida", mode: "sc" },
   { name: "Michael McAlpine", team: "Florida", mode: "sc" },
   { name: "Julian Torres", team: "Florida", mode: "sc" },
 
@@ -78,4 +78,3 @@ const agentDirectory = [
   // --- KINETIC: INDEPENDENT CONTRACTORS ---
   { name: "Marketing Contractors", team: "Independent Contractor", mode: "kinetic" }
 ];
-// forcing a new deployment
