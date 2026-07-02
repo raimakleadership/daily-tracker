@@ -8,7 +8,6 @@ const agentDirectory = [
   // --- FLORIDA SALES CENTER ---
   { name: "Noah Caldwell", team: "Florida", mode: "sc" },
   { name: "Kenny Leroux", team: "Florida", mode: "sc" },
-  { name: "Angelica Gonzales", team: "Florida", mode: "sc" },
   { name: "Michael McAlpine", team: "Florida", mode: "sc" },
   { name: "Julian Torres", team: "Florida", mode: "sc" },
 
@@ -20,6 +19,7 @@ const agentDirectory = [
 
   // --- ADMIN ---
   { name: "Alton Anderson", team: "Admin", mode: "admin" },
+    { name: "Angelica Gonzales", team: "Admin", mode: "admin" },
   { name: "Brianna Woodall", team: "Admin", mode: "admin" },
   { name: "Brittany Roman", team: "Admin", mode: "admin" },
   { name: "Celinda Milland", team: "Admin", mode: "admin" },
