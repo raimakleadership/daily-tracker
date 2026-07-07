@@ -10,6 +10,8 @@ const agentDirectory = [
   { name: "Kenny Leroux", team: "Florida", mode: "sc" },
   { name: "Michael McAlpine", team: "Florida", mode: "sc" },
   { name: "Julian Torres", team: "Florida", mode: "sc" },
+  { name: "Steph Balleste", team: "Florida", mode: "sc" },
+  { name: "Ally Cooper", team: "Florida", mode: "sc" },
 
   // --- TEXAS SALES CENTER ---
   { name: "Jon Scroggins", team: "Texas", mode: "sc" },
@@ -32,12 +34,13 @@ const agentDirectory = [
   { name: "Mackenzi Windle", team: "Admin", mode: "admin" },
   { name: "Madeline Galeana", team: "Admin", mode: "admin" },
   { name: "Makayla Elliot", team: "Admin", mode: "admin" },
+  { name: "Meagan Garcia", team: "Admin", mode: "admin" },
   { name: "Michelle Bunt", team: "Admin", mode: "admin" },
   { name: "Misty Wheaton", team: "Admin", mode: "admin" },
   { name: "Owen Bowden", team: "Admin", mode: "admin" },
   { name: "Salvador Garcia", team: "Admin", mode: "admin" },
   { name: "Sylvia Polanco", team: "Admin", mode: "admin" },
-  { name: "Tamieka Henry", team: "Admin", mode: "admin" },
+  { name: "Tamekia Henry", team: "Admin", mode: "admin" },
 
   // --- D2D: TY HUGHES ---
   { name: "Donald Wiley", team: "Ty Hughes", mode: "d2d" },
@@ -47,6 +50,7 @@ const agentDirectory = [
   { name: "Justus Redix", team: "Ty Hughes", mode: "d2d" },
 
   // --- D2D: HOUSTON BRYANT ---
+  { name: "Houston Bryant", team: "Houston Bryant", mode: "d2d" },
   { name: "Michale McGee", team: "Houston Bryant", mode: "d2d" },
   { name: "Stephon Davis", team: "Houston Bryant", mode: "d2d" },
   { name: "Shawn Patrick", team: "Houston Bryant", mode: "d2d" },
@@ -70,6 +74,7 @@ const agentDirectory = [
   { name: "Foster Barrett", team: "Jaton's Team", mode: "kinetic" },
 
   // --- KINETIC: ANDREW IRIZARRY'S TEAM ---
+  { name: "Andrew Irizarry", team: "Andrew's Team", mode: "kinetic" },
   { name: "Jeffrey Nwokorie", team: "Andrew Irizarry's Team", mode: "kinetic" },
   { name: "Skyler Westervelt", team: "Andrew Irizarry's Team", mode: "kinetic" },
   { name: "Rodolfo Banda", team: "Andrew Irizarry's Team", mode: "kinetic" },
