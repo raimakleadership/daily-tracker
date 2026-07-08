@@ -21,12 +21,13 @@ const agentDirectory = [
 
   // --- ADMIN ---
   { name: "Alton Anderson", team: "Admin", mode: "admin" },
-    { name: "Angelica Gonzales", team: "Admin", mode: "admin" },
+  { name: "Angelica Gonzalez", team: "Admin", mode: "admin" },
   { name: "Brianna Woodall", team: "Admin", mode: "admin" },
   { name: "Brittany Roman", team: "Admin", mode: "admin" },
   { name: "Celinda Milland", team: "Admin", mode: "admin" },
   { name: "Chelsey Foor", team: "Admin", mode: "admin" },
   { name: "Emily Bou", team: "Admin", mode: "admin" },
+  { name: "Jennifer Smith", team: "Admin", mode: "admin" },
   { name: "Jessica Smith", team: "Admin", mode: "admin" },
   { name: "Justin Felix", team: "Admin", mode: "admin" },
   { name: "Krystyna Hinesley", team: "Admin", mode: "admin" },
@@ -65,9 +66,11 @@ const agentDirectory = [
   { name: "Travis Goosens", team: "Independent Contractor", mode: "d2d" },
 
   // --- KINETIC: JATON'S TEAM ---
+  { name: "Jaton Turner", team: "Jaton's Team", mode: "kinetic" },
   { name: "Janice Pye", team: "Jaton's Team", mode: "kinetic" },
   { name: "Gregg Henderson", team: "Jaton's Team", mode: "kinetic" },
   { name: "Nicole Lawrence", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Misty Brookshire", team: "Jaton's Team", mode: "kinetic" },
   { name: "Amanda Reynolds", team: "Jaton's Team", mode: "kinetic" },
   { name: "Breanna Arrowood", team: "Jaton's Team", mode: "kinetic" },
   { name: "Tyler Garrett", team: "Jaton's Team", mode: "kinetic" },
