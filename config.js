@@ -43,6 +43,7 @@ const agentDirectory = [
   { name: "Tamekia Henry", team: "Admin", mode: "admin" },
 
   // --- D2D: TY HUGHES ---
+  { name: "Ty Hughes", team: "Ty Hughes", mode: "d2d" },
   { name: "Donald Wiley", team: "Ty Hughes", mode: "d2d" },
   { name: "Josh Urley", team: "Ty Hughes", mode: "d2d" },
   { name: "Randy Robinson", team: "Ty Hughes", mode: "d2d" },
