@@ -699,7 +699,57 @@
         <div class="row2">
           <div class="field">
             <label for="edate">Date of entry</label>
-            <input type="date" id="edate" />
+            <div style="display: flex; gap: 8px; align-items: stretch">
+              <input
+                type="date"
+                id="edate"
+                readonly
+                style="
+                  background-color: #f4f5f7;
+                  border: 1px solid transparent;
+                  border-radius: 8px;
+                  padding: 10px 14px;
+                  flex-grow: 1;
+                  cursor: not-allowed;
+                  color: #64748b;
+                  font-family: inherit;
+                  font-size: 14px;
+                  outline: none;
+                  box-sizing: border-box;
+                  transition: all 0.2s ease;
+                "
+              />
+
+              <button
+                type="button"
+                id="overrideDateBtn"
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 6px;
+                  padding: 0 16px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: #475569;
+                  background-color: #ffffff;
+                  border: 1px solid #e2e8f0;
+                  border-radius: 8px;
+                  cursor: pointer;
+                  white-space: nowrap;
+                  transition: all 0.2s ease;
+                  font-family: inherit;
+                  box-sizing: border-box;
+                  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                "
+              >
+                <i
+                  class="ti ti-lock"
+                  id="dateLockIcon"
+                  style="font-size: 16px"
+                ></i>
+                <span id="dateLockText">Unlock</span>
+              </button>
+            </div>
           </div>
           <div class="field" id="team-field">
             <label for="team">Assigned Team</label>
@@ -1312,6 +1362,15 @@
 
       var assignees = ["Toni", "Meagan", "Brent", "Other leadership member"];
 
+      // --- NEW: Local Time Date Generator ---
+      function setLocalToday() {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = String(today.getMonth() + 1).padStart(2, "0");
+        var dd = String(today.getDate()).padStart(2, "0");
+        document.getElementById("edate").value = yyyy + "-" + mm + "-" + dd;
+      }
+
       function initDirectory() {
         const select = document.getElementById("agent-select");
 
@@ -1534,9 +1593,25 @@
         document.getElementById("task-list").innerHTML = "";
         taskCount = 0;
         calc();
-        document.getElementById("edate").value = new Date()
-          .toISOString()
-          .split("T")[0];
+
+        // --- NEW: Reset to local date and re-lock the UI ---
+        setLocalToday();
+        var dInput = document.getElementById("edate");
+        var btn = document.getElementById("overrideDateBtn");
+        var icon = document.getElementById("dateLockIcon");
+        var textSpan = document.getElementById("dateLockText");
+
+        if (dInput) {
+          dInput.setAttribute("readonly", true);
+          dInput.style.backgroundColor = "#f4f5f7";
+          dInput.style.border = "1px solid transparent";
+          dInput.style.cursor = "not-allowed";
+          dInput.style.color = "#64748b";
+        }
+
+        if (btn) btn.style.backgroundColor = "#ffffff";
+        if (icon) icon.className = "ti ti-lock";
+        if (textSpan) textSpan.innerText = "Unlock";
       }
 
       async function submitForm() {
@@ -1679,12 +1754,66 @@
           submitBtn.innerHTML = originalBtnHTML;
           submitBtn.disabled = false;
         }
+
+        // --- NEW: Bulletproof Background Date Updater ---
+        function autoRefreshDate() {
+          var dInput = document.getElementById("edate");
+          // Only force an update if the field is currently locked (readonly)
+          // This ensures we never overwrite an agent's manual override!
+          if (dInput && dInput.hasAttribute("readonly")) {
+            setLocalToday();
+          }
+        }
+
+        // 1. The Pulse: Check every 5 minutes (300,000 milliseconds)
+        setInterval(autoRefreshDate, 300000);
+
+        // 2. The Wake-Up: Check instantly when they click back to the tab
+        document.addEventListener("visibilitychange", function () {
+          if (document.visibilityState === "visible") {
+            autoRefreshDate();
+          }
+        });
       }
 
       initDirectory();
-      document.getElementById("edate").value = new Date()
-        .toISOString()
-        .split("T")[0];
+
+      // --- NEW: Initialize local date on page load ---
+      setLocalToday();
+
+      // --- NEW: Override Button Event Listener ---
+      document
+        .getElementById("overrideDateBtn")
+        .addEventListener("click", function () {
+          var dInput = document.getElementById("edate");
+          var icon = document.getElementById("dateLockIcon");
+          var textSpan = document.getElementById("dateLockText");
+
+          if (dInput.hasAttribute("readonly")) {
+            // Unlock State
+            dInput.removeAttribute("readonly");
+            dInput.style.backgroundColor = "#ffffff";
+            dInput.style.border = "1px solid #e2e8f0";
+            dInput.style.cursor = "text";
+            dInput.style.color = "#1e293b";
+
+            this.style.backgroundColor = "#f8fafc";
+            icon.className = "ti ti-lock-open";
+            textSpan.innerText = "Lock & Reset";
+          } else {
+            // Lock State
+            dInput.setAttribute("readonly", true);
+            dInput.style.backgroundColor = "#f4f5f7";
+            dInput.style.border = "1px solid transparent";
+            dInput.style.cursor = "not-allowed";
+            dInput.style.color = "#64748b";
+            setLocalToday();
+
+            this.style.backgroundColor = "#ffffff";
+            icon.className = "ti ti-lock";
+            textSpan.innerText = "Unlock";
+          }
+        });
     </script>
     <style>
       @keyframes spin {
