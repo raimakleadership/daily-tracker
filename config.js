@@ -47,6 +47,7 @@ const agentDirectory = [
   { name: "Ty Hughes", team: "Ty Hughes", mode: "d2d" },
   { name: "Donald Wiley", team: "Ty Hughes", mode: "d2d" },
   { name: "Josh Urley", team: "Ty Hughes", mode: "d2d" },
+  { name: "Jason Morningstar", team: "Ty Hughes", mode: "d2d" },
   { name: "Randy Robinson", team: "Ty Hughes", mode: "d2d" },
   { name: "Austin Edminster", team: "Ty Hughes", mode: "d2d" },
   { name: "Justus Redix", team: "Ty Hughes", mode: "d2d" },
