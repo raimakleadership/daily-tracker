@@ -67,6 +67,7 @@ const agentDirectory = [
   { name: "Travis Goosens", team: "Independent Contractor", mode: "d2d" },
 
   // --- KINETIC: JATON'S TEAM ---
+  { name: "Dylan Aul", team: "Jaton's Team", mode: "d2d" },
   { name: "Jaton Turner", team: "Jaton's Team", mode: "kinetic" },
   { name: "Janice Pye", team: "Jaton's Team", mode: "kinetic" },
   { name: "Gregg Henderson", team: "Jaton's Team", mode: "kinetic" },
