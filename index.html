@@ -868,15 +868,11 @@
               />
             </div>
             <div class="field">
-              <label for="a_vz_ref">Verizon referrals</label>
-              <input type="number" id="a_vz_ref" min="0" placeholder="0" />
-            </div>
-          </div>
-          <div class="row3">
-            <div class="field">
               <label for="a_calls">Calls answered</label>
               <input type="number" id="a_calls" min="0" placeholder="0" />
             </div>
+          </div>
+          <div class="row3" style="margin-bottom: 12px">
             <div class="field">
               <label for="a_orders">Orders written</label>
               <input type="number" id="a_orders" min="0" placeholder="0" />
@@ -884,6 +880,20 @@
             <div class="field">
               <label for="a_scrubbed">Leads scrubbed</label>
               <input type="number" id="a_scrubbed" min="0" placeholder="0" />
+            </div>
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label for="a_data_upsold">Data Upsold</label>
+              <input type="number" id="a_data_upsold" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="a_vas_upsold">VAS Upsold</label>
+              <input type="number" id="a_vas_upsold" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="a_vz_upsold">Verizon Upsold</label>
+              <input type="number" id="a_vz_upsold" min="0" placeholder="0" />
             </div>
           </div>
         </div>
@@ -1564,7 +1574,9 @@
           "vz_ref",
           "a_leads",
           "a_closed",
-          "a_vz_ref",
+          "a_data_upsold",
+          "a_vas_upsold",
+          "a_vz_upsold",
           "a_calls",
           "a_orders",
           "a_scrubbed",
@@ -1679,11 +1691,17 @@
               parseInt(document.getElementById("a_leads").value) ||
               parseInt(document.getElementById("k_leads").value) ||
               0,
+
+            dataUpsold:
+              parseInt(document.getElementById("a_data_upsold").value) || 0,
+            vasUpsold:
+              parseInt(document.getElementById("a_vas_upsold").value) || 0,
             vzRefs:
+              parseInt(document.getElementById("a_vz_upsold").value) ||
               parseInt(document.getElementById("vz_ref").value) ||
-              parseInt(document.getElementById("a_vz_ref").value) ||
               parseInt(document.getElementById("k_vz_ref").value) ||
               0,
+
             doorsKnocked:
               parseInt(document.getElementById("d_doors").value) || 0,
             outboundCalls:
@@ -1754,32 +1772,30 @@
           submitBtn.innerHTML = originalBtnHTML;
           submitBtn.disabled = false;
         }
-
-        // --- NEW: Bulletproof Background Date Updater ---
-        function autoRefreshDate() {
-          var dInput = document.getElementById("edate");
-          // Only force an update if the field is currently locked (readonly)
-          // This ensures we never overwrite an agent's manual override!
-          if (dInput && dInput.hasAttribute("readonly")) {
-            setLocalToday();
-          }
-        }
-
-        // 1. The Pulse: Check every 5 minutes (300,000 milliseconds)
-        setInterval(autoRefreshDate, 300000);
-
-        // 2. The Wake-Up: Check instantly when they click back to the tab
-        document.addEventListener("visibilitychange", function () {
-          if (document.visibilityState === "visible") {
-            autoRefreshDate();
-          }
-        });
       }
 
       initDirectory();
 
       // --- NEW: Initialize local date on page load ---
       setLocalToday();
+
+      // --- NEW: Bulletproof Background Date Updater ---
+      function autoRefreshDate() {
+        var dInput = document.getElementById("edate");
+        if (dInput && dInput.hasAttribute("readonly")) {
+          setLocalToday();
+        }
+      }
+
+      // 1. The Pulse: Check every 5 minutes (300,000 milliseconds)
+      setInterval(autoRefreshDate, 300000);
+
+      // 2. The Wake-Up: Check instantly when they click back to the tab
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+          autoRefreshDate();
+        }
+      });
 
       // --- NEW: Override Button Event Listener ---
       document
