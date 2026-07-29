@@ -12,6 +12,12 @@ const agentDirectory = [
   { name: "Julian Torres", team: "Florida", mode: "sc" },
   { name: "Steph Balleste", team: "Florida", mode: "sc" },
   { name: "Ally Cooper", team: "Florida", mode: "sc" },
+  
+  // --- ALLY'S TEAM ---
+  { name: "Ashley Lewis", team: "Ally's Team", mode: "sc" },
+  { name: "Ashley Owens", team: "Ally's Team", mode: "sc" },
+  { name: "Chandler Vandeboe", team: "Ally's Team", mode: "sc" },
+  { name: "Heather Norris", team: "Ally's Team", mode: "sc" },
 
   // --- TEXAS SALES CENTER ---
   { name: "Jon Scroggins", team: "Texas", mode: "sc" },
