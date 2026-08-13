@@ -4,6 +4,7 @@ const agentDirectory = [
   { name: "Meghann Stevens", team: "Remote", mode: "sc" },
   { name: "Ken Roundtree", team: "Remote", mode: "sc" },
   { name: "Kelly Moats", team: "Remote", mode: "sc" },
+  { name: "Isabel Turrubiartez", team: "Remote", mode: "sc" },
 
   // --- FLORIDA SALES CENTER ---
   { name: "Noah Caldwell", team: "Florida", mode: "sc" },
@@ -26,7 +27,7 @@ const agentDirectory = [
   { name: "Tory Mathis", team: "Texas", mode: "sc" },
 
   // --- ADMIN ---
-  { name: "Alton Anderson", team: "Admin", mode: "admin" },
+  { name: "Amanda Reynolds", team: "Admin", mode: "admin" },
   { name: "Angelica Gonzalez", team: "Admin", mode: "admin" },
   { name: "Brianna Woodall", team: "Admin", mode: "admin" },
   { name: "Brittany Roman", team: "Admin", mode: "admin" },
@@ -37,7 +38,6 @@ const agentDirectory = [
   { name: "Jessica Smith", team: "Admin", mode: "admin" },
   { name: "Justin Felix", team: "Admin", mode: "admin" },
   { name: "Krystyna Hinesley", team: "Admin", mode: "admin" },
-  { name: "Laura Saunders", team: "Admin", mode: "admin" },
   { name: "Mackenzi Windle", team: "Admin", mode: "admin" },
   { name: "Madeline Galeana", team: "Admin", mode: "admin" },
   { name: "Makayla Elliot", team: "Admin", mode: "admin" },
@@ -48,6 +48,7 @@ const agentDirectory = [
   { name: "Salvador Garcia", team: "Admin", mode: "admin" },
   { name: "Sylvia Polanco", team: "Admin", mode: "admin" },
   { name: "Tamekia Henry", team: "Admin", mode: "admin" },
+  { name: "Tyler Garrett", team: "Admin", mode: "admin" },
 
   // --- D2D: TY HUGHES ---
   { name: "Ty Hughes", team: "Ty Hughes", mode: "d2d" },
@@ -79,22 +80,20 @@ const agentDirectory = [
   { name: "Gregg Henderson", team: "Jaton's Team", mode: "kinetic" },
   { name: "Nicole Lawrence", team: "Jaton's Team", mode: "kinetic" },
   { name: "Misty Brookshire", team: "Jaton's Team", mode: "kinetic" },
-  { name: "Amanda Reynolds", team: "Jaton's Team", mode: "kinetic" },
   { name: "Breanna Arrowood", team: "Jaton's Team", mode: "kinetic" },
-  { name: "Tyler Garrett", team: "Jaton's Team", mode: "kinetic" },
-  { name: "Isabel Turrubiartez", team: "Jaton's Team", mode: "kinetic" },
   { name: "Foster Barrett", team: "Jaton's Team", mode: "kinetic" },
-
-  // --- KINETIC: ANDREW IRIZARRY'S TEAM ---
-  { name: "Andrew Irizarry", team: "Andrew's Team", mode: "kinetic" },
-  { name: "Jeffrey Nwokorie", team: "Andrew Irizarry's Team", mode: "kinetic" },
-  { name: "Skyler Westervelt", team: "Andrew Irizarry's Team", mode: "kinetic" },
-  { name: "Rodolfo Banda", team: "Andrew Irizarry's Team", mode: "kinetic" },
-  { name: "Damian Gatling", team: "Andrew Irizarry's Team", mode: "kinetic" },
+  { name: "Alton Anderson", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Laura Saunders", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Andrew Irizarry", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Jeffrey Nwokorie", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Skyler Westervelt", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Rodolfo Banda", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Damian Gatling", team: "Jaton's Team", mode: "kinetic" },
 
   // --- KINETIC: INDEPENDENT CONTRACTORS ---
   { name: "Marketing Contractors", team: "Independent Contractor", mode: "kinetic" }
 ];
+
 // forcing
 // another
 // new deployment smh
