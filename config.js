@@ -19,6 +19,7 @@ const agentDirectory = [
   { name: "Ashley Owens", team: "Ally's Team", mode: "sc" },
   { name: "Chandler Vandeboe", team: "Ally's Team", mode: "sc" },
   { name: "Heather Norris", team: "Ally's Team", mode: "sc" },
+  { name: "Jennifer Smith", team: "Ally's Team", mode: "admin" },
 
   // --- TEXAS SALES CENTER ---
   { name: "Jon Scroggins", team: "Texas", mode: "sc" },
@@ -34,7 +35,6 @@ const agentDirectory = [
   { name: "Celinda Milland", team: "Admin", mode: "admin" },
   { name: "Chelsey Foor", team: "Admin", mode: "admin" },
   { name: "Emily Bou", team: "Admin", mode: "admin" },
-  { name: "Jennifer Smith", team: "Admin", mode: "admin" },
   { name: "Jessica Smith", team: "Admin", mode: "admin" },
   { name: "Justin Felix", team: "Admin", mode: "admin" },
   { name: "Krystyna Hinesley", team: "Admin", mode: "admin" },
@@ -54,19 +54,21 @@ const agentDirectory = [
   { name: "Ty Hughes", team: "Ty Hughes", mode: "d2d" },
   { name: "Donald Wiley", team: "Ty Hughes", mode: "d2d" },
   { name: "Josh Urley", team: "Ty Hughes", mode: "d2d" },
-  { name: "Jason Morningstar", team: "Ty Hughes", mode: "d2d" },
-  { name: "Randy Robinson", team: "Ty Hughes", mode: "d2d" },
   { name: "Austin Edminster", team: "Ty Hughes", mode: "d2d" },
   { name: "Justus Redix", team: "Ty Hughes", mode: "d2d" },
 
   // --- D2D: HOUSTON BRYANT ---
   { name: "Houston Bryant", team: "Houston Bryant", mode: "d2d" },
   { name: "Michale McGee", team: "Houston Bryant", mode: "d2d" },
+  /** Washed out employees
   { name: "Stephon Davis", team: "Houston Bryant", mode: "d2d" },
   { name: "Shawn Patrick", team: "Houston Bryant", mode: "d2d" },
   { name: "Martin Garcia", team: "Houston Bryant", mode: "d2d" },
   { name: "Lloyd Gregg", team: "Houston Bryant", mode: "d2d" },
   { name: "Jason Lerma", team: "Houston Bryant", mode: "d2d" },
+  { name: "Jason Morningstar", team: "Ty Hughes", mode: "d2d" },
+  { name: "Randy Robinson", team: "Ty Hughes", mode: "d2d" },
+  **/
 
   // --- D2D: INDEPENDENT CONTRACTORS ---
   { name: "Shannon Kester", team: "Independent Contractor", mode: "d2d" },
