@@ -19,7 +19,7 @@ const agentDirectory = [
   { name: "Ashley Owens", team: "Ally's Team", mode: "sc" },
   { name: "Chandler Vandeboe", team: "Ally's Team", mode: "sc" },
   { name: "Heather Norris", team: "Ally's Team", mode: "sc" },
-  { name: "Jennifer Smith", team: "Ally's Team", mode: "admin" },
+  { name: "Jennifer Smith", team: "Ally's Team", mode: "sc" },
 
   // --- TEXAS SALES CENTER ---
   { name: "Jon Scroggins", team: "Texas", mode: "sc" },
