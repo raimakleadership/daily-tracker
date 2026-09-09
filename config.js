@@ -51,15 +51,15 @@ const agentDirectory = [
   { name: "Tyler Garrett", team: "Admin", mode: "admin" },
 
   // --- D2D: TY HUGHES ---
-  { name: "Ty Hughes", team: "Ty Hughes", mode: "d2d" },
+  { name: "Ty Hughes", team: "Steph's Team", mode: "d2d" },
   { name: "Donald Wiley", team: "Ty Hughes", mode: "d2d" },
   { name: "Josh Urley", team: "Ty Hughes", mode: "d2d" },
   { name: "Austin Edminster", team: "Ty Hughes", mode: "d2d" },
-  { name: "Justus Redix", team: "Ty Hughes", mode: "d2d" },
+  { name: "Justus Redix", team: "Steph's Team", mode: "d2d" },
 
   // --- D2D: HOUSTON BRYANT ---
-  { name: "Houston Bryant", team: "Houston Bryant", mode: "d2d" },
-  { name: "Michale McGee", team: "Houston Bryant", mode: "d2d" },
+  { name: "Houston Bryant", team: "Steph's Team", mode: "d2d" },
+  { name: "Michale McGee", team: "Steph's Team", mode: "d2d" },
   /** Washed out employees
   { name: "Stephon Davis", team: "Houston Bryant", mode: "d2d" },
   { name: "Shawn Patrick", team: "Houston Bryant", mode: "d2d" },
@@ -91,6 +91,8 @@ const agentDirectory = [
   { name: "Skyler Westervelt", team: "Jaton's Team", mode: "kinetic" },
   { name: "Rodolfo Banda", team: "Jaton's Team", mode: "kinetic" },
   { name: "Damian Gatling", team: "Jaton's Team", mode: "kinetic" },
+  { name: "David Gonzales", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Anna Garza", team: "Jaton's Team", mode: "kinetic" },
 
   // --- KINETIC: INDEPENDENT CONTRACTORS ---
   { name: "Marketing Contractors", team: "Independent Contractor", mode: "kinetic" }
