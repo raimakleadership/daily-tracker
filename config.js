@@ -70,8 +70,9 @@ const agentDirectory = [
   { name: "Travis Goosens", team: "Independent Contractor", mode: "d2d" },
 
   // --- KINETIC: JATON'S TEAM ---
-  { name: "Dylan Aul", team: "Jaton's Team", mode: "kinetic" },
+  // { name: "Dylan Aul", team: "Jaton's Team", mode: "kinetic" },
   { name: "Jaton Turner", team: "Jaton's Team", mode: "kinetic" },
+  { name: "Veronica Daughety", team: "Jaton's Team", mode: "kinetic" },
   { name: "Janice Pye", team: "Jaton's Team", mode: "kinetic" },
   { name: "Gregg Henderson", team: "Jaton's Team", mode: "kinetic" },
   { name: "Nicole Lawrence", team: "Jaton's Team", mode: "kinetic" },
