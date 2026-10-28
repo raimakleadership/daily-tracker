@@ -3,6 +3,8 @@ const agentDirectory = [
   { name: "Caressa Scarrett", team: "Remote", mode: "sc" },
   { name: "Ken Roundtree", team: "Remote", mode: "sc" },
   { name: "Isabel Turrubiartez", team: "Remote", mode: "sc" },
+  { name: "Meghann Stevens",  team: "Remote", mode: "sc" },
+  { name: "Kelly Moats",  team: "Remote", mode: "sc" },
 
   // --- FLORIDA SALES CENTER ---
   { name: "Noah Caldwell", team: "Florida", mode: "sc" },
@@ -88,8 +90,6 @@ const agentDirectory = [
   { name: "Damian Gatling", team: "Jaton's Team", mode: "kinetic" },
   { name: "David Gonzales", team: "Jaton's Team", mode: "kinetic" },
   { name: "Anna Garza", team: "Jaton's Team", mode: "kinetic" },
-  { name: "Meghann Stevens", team: "Jaton's Team", mode: "kinetic" },
-  { name: "Kelly Moats", team: "Jaton's Team", mode: "kinetic" },
 
   // --- KINETIC: ADMIN TEAM ---
   { name: "Tyler Garrett", team: "Admin", mode: "kinetic" },
