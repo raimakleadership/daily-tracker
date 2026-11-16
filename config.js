@@ -13,7 +13,7 @@ const agentDirectory = [
   { name: "Julian Torres", team: "Florida", mode: "sc" },
   { name: "Steph Balleste", team: "Florida", mode: "sc" },
   { name: "Ally Cooper", team: "Florida", mode: "sc" },
-  { name: "Mackenzi Windle", team: "Florida", mode: "sc" },
+  { name: "Mackenzi Windle", team: "Ally's Team", mode: "vz" },
 
   // --- ALLY'S TEAM ---
   { name: "Ashley Lewis", team: "Ally's Team", mode: "sc" },
