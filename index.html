@@ -456,6 +456,10 @@
         background: var(--amber-light);
         color: var(--amber-dark);
       }
+      .badge-vz {
+        background: var(--red-light);
+        color: var(--red-dark);
+      }
 
       /* Admin & Kinetic Tasks */
       .task-list {
@@ -677,6 +681,9 @@
         </button>
         <button class="mode-btn" id="btn-kinetic" type="button">
           <i class="ti ti-bolt"></i>Kinetic
+        </button>
+        <button class="mode-btn" id="btn-vz" type="button">
+          <i class="ti ti-device-mobile"></i>Verizon
         </button>
       </div>
 
@@ -940,6 +947,106 @@
             </div>
           </div>
         </div>
+
+        <!-- VERIZON ACTIVITY -->
+        <div id="vz-activity" style="display: none">
+          <div class="sec-title" style="margin-top: 15px">
+            <i class="ti ti-users"></i> Leads & Prospecting
+          </div>
+          <div class="row3" style="margin-bottom: 12px">
+            <div class="field">
+              <label for="v_inbound" title="Inbound referrals received"
+                >Inbound Referrals</label
+              >
+              <input type="number" id="v_inbound" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="v_warm" title="Warm leads provided by Ally"
+                >Ally Warm Leads</label
+              >
+              <input type="number" id="v_warm" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="v_self_gen" title="Self-generated leads"
+                >Self-Gen Leads</label
+              >
+              <input type="number" id="v_self_gen" min="0" placeholder="0" />
+            </div>
+          </div>
+
+          <div class="sec-title" style="margin-top: 15px">
+            <i class="ti ti-headset"></i> Outreach & Follow-Up
+          </div>
+          <div class="row3" style="margin-bottom: 12px">
+            <div class="field">
+              <label for="v_outbound" title="Outbound calls Verizon LMS leads"
+                >LMS Outbound Calls</label
+              >
+              <input type="number" id="v_outbound" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="v_warm_contact" title="Warm leads contacted"
+                >Warm Leads Contacted</label
+              >
+              <input
+                type="number"
+                id="v_warm_contact"
+                min="0"
+                placeholder="0"
+              />
+            </div>
+            <div class="field">
+              <label for="v_followups" title="Customer follow-ups completed"
+                >Follow-Ups Completed</label
+              >
+              <input type="number" id="v_followups" min="0" placeholder="0" />
+            </div>
+          </div>
+
+          <div class="row3" style="margin-bottom: 12px">
+            <div class="field">
+              <label for="v_doors" title="Doors knocked">Doors Knocked</label>
+              <input type="number" id="v_doors" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="v_quotes" title="Quotes provided"
+                >Quotes Provided</label
+              >
+              <input type="number" id="v_quotes" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <!-- Empty spacer to align the grid nicely -->
+            </div>
+          </div>
+
+          <div class="sec-title" style="margin-top: 15px">
+            <i class="ti ti-cash"></i> Closed Sales
+          </div>
+          <div class="row3">
+            <div class="field">
+              <label for="v_closed" title="Sales closed (transactions)"
+                >Total Sales (Trans.)</label
+              >
+              <input
+                type="number"
+                id="v_closed"
+                min="0"
+                placeholder="0"
+                oninput="calc()"
+              />
+            </div>
+            <div class="field">
+              <label for="v_lines" title="Wireless lines sold"
+                >Wireless Lines Sold</label
+              >
+              <input type="number" id="v_lines" min="0" placeholder="0" />
+            </div>
+            <div class="field">
+              <label for="v_5g" title="5G Home sales">5G Home Sales</label>
+              <input type="number" id="v_5g" min="0" placeholder="0" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- ADDITIONAL RESPONSIBILITIES -->
@@ -953,377 +1060,381 @@
         </button>
       </div>
 
-      <!-- INTERNET SALES -->
-      <div class="section">
-        <div class="sec-title"><i class="ti ti-home"></i> Internet sales</div>
-        <div class="sub-title">
-          <i class="ti ti-building-community"></i> Sale type
-        </div>
-        <div class="card-grid" style="margin-bottom: 1rem">
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">New Installs</div>
-              <div class="ccard-sub">Brand-new service</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('new_res', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="new_res-val"
-                value="0"
-                min="0"
-                oninput="manualSet('new_res', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('new_res', 1)">+</button>
-            </div>
+      <div id="frontier-products-section">
+        <!-- INTERNET SALES -->
+        <div class="section">
+          <div class="sec-title"><i class="ti ti-home"></i> Internet sales</div>
+          <div class="sub-title">
+            <i class="ti ti-building-community"></i> Sale type
           </div>
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">Migration sales</div>
-              <div class="ccard-sub">Copper-to-fiber</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('migration', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="migration-val"
-                value="0"
-                min="0"
-                oninput="manualSet('migration', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('migration', 1)">+</button>
-            </div>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div class="sub-title"><i class="ti ti-wifi"></i> Speed tier</div>
-        <div class="card-grid">
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">500 Mbps &amp; under</div>
-              <div class="ccard-sub">Entry / mid-tier fiber</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('under500', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="under500-val"
-                value="0"
-                min="0"
-                oninput="manualSet('under500', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('under500', 1)">+</button>
-            </div>
-          </div>
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">1 Gig &amp; above</div>
-              <div class="ccard-sub">Gig+ / premium tier</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('gig1', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="gig1-val"
-                value="0"
-                min="0"
-                oninput="manualSet('gig1', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('gig1', 1)">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HOME PHONE -->
-      <div class="section">
-        <div class="sec-title"><i class="ti ti-phone"></i> Home phone</div>
-        <div class="card-grid">
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">New home phones</div>
-              <div class="ccard-sub">First-time activation</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('new_phone', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="new_phone-val"
-                value="0"
-                min="0"
-                oninput="manualSet('new_phone', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('new_phone', 1)">+</button>
-            </div>
-          </div>
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">Existing home phones</div>
-              <div class="ccard-sub">Retained on account</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('exist_phone', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="exist_phone-val"
-                value="0"
-                min="0"
-                oninput="manualSet('exist_phone', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('exist_phone', 1)">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- VAS -->
-      <div class="section">
-        <div class="sec-title"><i class="ti ti-shield-check"></i> VAS sold</div>
-        <div class="vas-grid">
-          <div class="vi">
-            <div class="ccard-l">
-              <div class="ccard-label">Whole Home WiFi</div>
-              <div class="ccard-sub">WHW</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('whw', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="whw-val"
-                value="0"
-                min="0"
-                oninput="manualSet('whw', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('whw', 1)">+</button>
-            </div>
-          </div>
-          <div class="vi">
-            <div class="ccard-l">
-              <div class="ccard-label">WiFi Security</div>
-              <div class="ccard-sub">Standard</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('ws', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="ws-val"
-                value="0"
-                min="0"
-                oninput="manualSet('ws', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('ws', 1)">+</button>
-            </div>
-          </div>
-          <div class="vi">
-            <div class="ccard-l">
-              <div class="ccard-label">WiFi Security Plus</div>
-              <div class="ccard-sub">Enhanced protection</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('wsp', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="wsp-val"
-                value="0"
-                min="0"
-                oninput="manualSet('wsp', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('wsp', 1)">+</button>
-            </div>
-          </div>
-          <div class="vi">
-            <div class="ccard-l">
-              <div class="ccard-label">My Premium Tech Pro</div>
-              <div class="ccard-sub">Tech support</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('mpt', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="mpt-val"
-                value="0"
-                min="0"
-                oninput="manualSet('mpt', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('mpt', 1)">+</button>
-            </div>
-          </div>
-          <div class="vi">
-            <div class="ccard-l">
-              <div class="ccard-label">Unbreakable WiFi</div>
-              <div class="ccard-sub">UBW</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('ubw', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="ubw-val"
-                value="0"
-                min="0"
-                oninput="manualSet('ubw', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('ubw', 1)">+</button>
-            </div>
-          </div>
-          <div class="vi bund">
-            <div class="ccard-l">
-              <div class="ccard-label">
-                Netflix Bundle<span class="bbadge"
-                  ><i
-                    class="ti ti-layers-intersect"
-                    style="font-size: 10px"
-                  ></i>
-                  ×3</span
-                >
+          <div class="card-grid" style="margin-bottom: 1rem">
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">New Installs</div>
+                <div class="ccard-sub">Brand-new service</div>
               </div>
-              <div class="ccard-sub">Includes WHW + WiFi Security</div>
+              <div class="qw">
+                <button class="qb" onclick="adj('new_res', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="new_res-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('new_res', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('new_res', 1)">+</button>
+              </div>
             </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('nflx', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="nflx-val"
-                value="0"
-                min="0"
-                oninput="manualSet('nflx', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('nflx', 1)">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TV & WIRELESS -->
-      <div class="section">
-        <div class="sec-title">
-          <i class="ti ti-device-tv"></i> TV &amp; wireless
-        </div>
-        <div class="card-grid">
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">YouTube TV</div>
-              <div class="ccard-sub">Sold today</div>
-            </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('ytv', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="ytv-val"
-                value="0"
-                min="0"
-                oninput="manualSet('ytv', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('ytv', 1)">+</button>
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">Migration sales</div>
+                <div class="ccard-sub">Copper-to-fiber</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('migration', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="migration-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('migration', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('migration', 1)">+</button>
+              </div>
             </div>
           </div>
-          <div class="ccard">
-            <div class="ccard-l">
-              <div class="ccard-label">Verizon lines sold</div>
-              <div class="ccard-sub">Wireless lines closed</div>
+          <div class="divider"></div>
+          <div class="sub-title"><i class="ti ti-wifi"></i> Speed tier</div>
+          <div class="card-grid">
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">500 Mbps &amp; under</div>
+                <div class="ccard-sub">Entry / mid-tier fiber</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('under500', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="under500-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('under500', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('under500', 1)">+</button>
+              </div>
             </div>
-            <div class="qw">
-              <button class="qb" onclick="adj('vz_lines', -1)">-</button>
-              <input
-                type="number"
-                class="qv-input"
-                id="vz_lines-val"
-                value="0"
-                min="0"
-                oninput="manualSet('vz_lines', this.value)"
-                onfocus="this.select()"
-              />
-              <button class="qb" onclick="adj('vz_lines', 1)">+</button>
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">1 Gig &amp; above</div>
+                <div class="ccard-sub">Gig+ / premium tier</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('gig1', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="gig1-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('gig1', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('gig1', 1)">+</button>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAILY TOTALS -->
-      <div class="section shaded">
-        <div class="sec-title">
-          <i class="ti ti-chart-bar"></i> Daily totals - auto-calculated
-        </div>
-
-        <div id="sc-metrics" class="metrics-bar">
-          <div class="mc">
-            <div class="ml">Total VAS</div>
-            <div class="mv hi" id="m-vas">0</div>
-          </div>
-          <div class="mc">
-            <div class="ml">VAS attach %</div>
-            <div class="mv hi" id="m-vas-rate">-</div>
-          </div>
-          <div class="mc">
-            <div class="ml">Gig+ sales</div>
-            <div class="mv" id="m-gig">0</div>
-          </div>
-          <div class="mc">
-            <div class="ml">Gig+ attach %</div>
-            <div class="mv wa" id="m-gig-rate">-</div>
           </div>
         </div>
 
-        <div id="d2d-metrics" style="display: none">
-          <div class="d2d-metrics" style="margin-bottom: 10px">
+        <!-- HOME PHONE -->
+        <div class="section">
+          <div class="sec-title"><i class="ti ti-phone"></i> Home phone</div>
+          <div class="card-grid">
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">New home phones</div>
+                <div class="ccard-sub">First-time activation</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('new_phone', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="new_phone-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('new_phone', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('new_phone', 1)">+</button>
+              </div>
+            </div>
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">Existing home phones</div>
+                <div class="ccard-sub">Retained on account</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('exist_phone', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="exist_phone-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('exist_phone', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('exist_phone', 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAS -->
+        <div class="section">
+          <div class="sec-title">
+            <i class="ti ti-shield-check"></i> VAS sold
+          </div>
+          <div class="vas-grid">
+            <div class="vi">
+              <div class="ccard-l">
+                <div class="ccard-label">Whole Home WiFi</div>
+                <div class="ccard-sub">WHW</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('whw', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="whw-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('whw', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('whw', 1)">+</button>
+              </div>
+            </div>
+            <div class="vi">
+              <div class="ccard-l">
+                <div class="ccard-label">WiFi Security</div>
+                <div class="ccard-sub">Standard</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('ws', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="ws-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('ws', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('ws', 1)">+</button>
+              </div>
+            </div>
+            <div class="vi">
+              <div class="ccard-l">
+                <div class="ccard-label">WiFi Security Plus</div>
+                <div class="ccard-sub">Enhanced protection</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('wsp', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="wsp-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('wsp', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('wsp', 1)">+</button>
+              </div>
+            </div>
+            <div class="vi">
+              <div class="ccard-l">
+                <div class="ccard-label">My Premium Tech Pro</div>
+                <div class="ccard-sub">Tech support</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('mpt', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="mpt-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('mpt', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('mpt', 1)">+</button>
+              </div>
+            </div>
+            <div class="vi">
+              <div class="ccard-l">
+                <div class="ccard-label">Unbreakable WiFi</div>
+                <div class="ccard-sub">UBW</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('ubw', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="ubw-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('ubw', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('ubw', 1)">+</button>
+              </div>
+            </div>
+            <div class="vi bund">
+              <div class="ccard-l">
+                <div class="ccard-label">
+                  Netflix Bundle<span class="bbadge"
+                    ><i
+                      class="ti ti-layers-intersect"
+                      style="font-size: 10px"
+                    ></i>
+                    ×3</span
+                  >
+                </div>
+                <div class="ccard-sub">Includes WHW + WiFi Security</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('nflx', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="nflx-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('nflx', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('nflx', 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TV & WIRELESS -->
+        <div class="section">
+          <div class="sec-title">
+            <i class="ti ti-device-tv"></i> TV &amp; wireless
+          </div>
+          <div class="card-grid">
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">YouTube TV</div>
+                <div class="ccard-sub">Sold today</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('ytv', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="ytv-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('ytv', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('ytv', 1)">+</button>
+              </div>
+            </div>
+            <div class="ccard">
+              <div class="ccard-l">
+                <div class="ccard-label">Verizon lines sold</div>
+                <div class="ccard-sub">Wireless lines closed</div>
+              </div>
+              <div class="qw">
+                <button class="qb" onclick="adj('vz_lines', -1)">-</button>
+                <input
+                  type="number"
+                  class="qv-input"
+                  id="vz_lines-val"
+                  value="0"
+                  min="0"
+                  oninput="manualSet('vz_lines', this.value)"
+                  onfocus="this.select()"
+                />
+                <button class="qb" onclick="adj('vz_lines', 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAILY TOTALS -->
+        <div class="section shaded">
+          <div class="sec-title">
+            <i class="ti ti-chart-bar"></i> Daily totals - auto-calculated
+          </div>
+
+          <div id="sc-metrics" class="metrics-bar">
             <div class="mc">
               <div class="ml">Total VAS</div>
-              <div class="mv hi" id="d-m-vas">0</div>
+              <div class="mv hi" id="m-vas">0</div>
             </div>
             <div class="mc">
               <div class="ml">VAS attach %</div>
-              <div class="mv hi" id="d-m-vas-rate">-</div>
-            </div>
-            <div class="mc">
-              <div class="ml">Gig+ attach %</div>
-              <div class="mv wa" id="d-m-gig-rate">-</div>
-            </div>
-          </div>
-          <div class="d2d-metrics">
-            <div class="mc">
-              <div class="ml">Doors -> sales %</div>
-              <div class="mv bl" id="d-m-close">-</div>
+              <div class="mv hi" id="m-vas-rate">-</div>
             </div>
             <div class="mc">
               <div class="ml">Gig+ sales</div>
-              <div class="mv" id="d-m-gig">0</div>
+              <div class="mv" id="m-gig">0</div>
             </div>
             <div class="mc">
-              <div class="ml">Appts made</div>
-              <div class="mv" id="d-m-appts">0</div>
+              <div class="ml">Gig+ attach %</div>
+              <div class="mv wa" id="m-gig-rate">-</div>
             </div>
           </div>
-        </div>
 
-        <div class="info-note">
-          <i class="ti ti-info-circle"></i> Netflix Bundle counts as 3 VAS units
-          (Netflix + Whole Home WiFi + WiFi Security). VAS attach = total VAS ÷
-          closed sales.
+          <div id="d2d-metrics" style="display: none">
+            <div class="d2d-metrics" style="margin-bottom: 10px">
+              <div class="mc">
+                <div class="ml">Total VAS</div>
+                <div class="mv hi" id="d-m-vas">0</div>
+              </div>
+              <div class="mc">
+                <div class="ml">VAS attach %</div>
+                <div class="mv hi" id="d-m-vas-rate">-</div>
+              </div>
+              <div class="mc">
+                <div class="ml">Gig+ attach %</div>
+                <div class="mv wa" id="d-m-gig-rate">-</div>
+              </div>
+            </div>
+            <div class="d2d-metrics">
+              <div class="mc">
+                <div class="ml">Doors -> sales %</div>
+                <div class="mv bl" id="d-m-close">-</div>
+              </div>
+              <div class="mc">
+                <div class="ml">Gig+ sales</div>
+                <div class="mv" id="d-m-gig">0</div>
+              </div>
+              <div class="mc">
+                <div class="ml">Appts made</div>
+                <div class="mv" id="d-m-appts">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-note">
+            <i class="ti ti-info-circle"></i> Netflix Bundle counts as 3 VAS
+            units (Netflix + Whole Home WiFi + WiFi Security). VAS attach =
+            total VAS ÷ closed sales.
+          </div>
         </div>
       </div>
 
@@ -1368,11 +1479,11 @@
         d2d: { text: "D2D", cls: "badge-d2d" },
         admin: { text: "Admin", cls: "badge-admin" },
         kinetic: { text: "Kinetic", cls: "badge-kinetic" },
+        vz: { text: "Verizon", cls: "badge-vz" },
       };
 
       var assignees = ["Toni", "Meagan", "Brent", "Other leadership member"];
 
-      // --- NEW: Local Time Date Generator ---
       function setLocalToday() {
         var today = new Date();
         var yyyy = today.getFullYear();
@@ -1412,7 +1523,7 @@
 
       function setMode(m) {
         mode = m;
-        ["sc", "d2d", "admin", "kinetic"].forEach(function (x) {
+        ["sc", "d2d", "admin", "kinetic", "vz"].forEach(function (x) {
           document
             .getElementById("btn-" + x)
             .classList.toggle("active", x === m);
@@ -1426,12 +1537,19 @@
           m === "admin" ? "block" : "none";
         document.getElementById("kinetic-activity").style.display =
           m === "kinetic" ? "block" : "none";
+        document.getElementById("vz-activity").style.display =
+          m === "vz" ? "block" : "none";
+
         document.getElementById("admin-tasks-section").style.display =
           m === "admin" || m === "kinetic" ? "block" : "none";
         document.getElementById("sc-metrics").style.display =
           m === "d2d" ? "none" : "grid";
         document.getElementById("d2d-metrics").style.display =
           m === "d2d" ? "block" : "none";
+
+        // Hides all Frontier product & metric sections for Verizon reps
+        document.getElementById("frontier-products-section").style.display =
+          m === "vz" ? "none" : "block";
 
         var lbl = document.getElementById("mode-label");
         var ml = modeLabels[m];
@@ -1482,7 +1600,9 @@
               ? parseInt(document.getElementById("a_closed").value) || 0
               : mode === "kinetic"
                 ? parseInt(document.getElementById("k_closed").value) || 0
-                : parseInt(document.getElementById("closed").value) || 0;
+                : mode === "vz"
+                  ? parseInt(document.getElementById("v_closed").value) || 0
+                  : parseInt(document.getElementById("closed").value) || 0;
           document.getElementById("m-vas").textContent = vas;
           document.getElementById("m-gig").textContent = gig;
           document.getElementById("m-vas-rate").textContent =
@@ -1592,6 +1712,17 @@
           "k_calls",
           "k_orders",
           "k_scrubbed",
+          "v_inbound",
+          "v_warm",
+          "v_self_gen",
+          "v_outbound",
+          "v_warm_contact",
+          "v_followups",
+          "v_doors",
+          "v_quotes",
+          "v_closed",
+          "v_lines",
+          "v_5g",
         ].forEach(function (id) {
           var el = document.getElementById(id);
           if (el) el.value = "";
@@ -1606,7 +1737,6 @@
         taskCount = 0;
         calc();
 
-        // --- NEW: Reset to local date and re-lock the UI ---
         setLocalToday();
         var dInput = document.getElementById("edate");
         var btn = document.getElementById("overrideDateBtn");
@@ -1635,9 +1765,11 @@
             ? document.getElementById("a_closed")
             : mode === "kinetic"
               ? document.getElementById("k_closed")
-              : mode === "d2d"
-                ? document.getElementById("d_sales")
-                : document.getElementById("closed");
+              : mode === "vz"
+                ? document.getElementById("v_closed")
+                : mode === "d2d"
+                  ? document.getElementById("d_sales")
+                  : document.getElementById("closed");
 
         if (!repName || !edate) {
           alert(
@@ -1690,38 +1822,49 @@
               parseInt(document.getElementById("leads").value) ||
               parseInt(document.getElementById("a_leads").value) ||
               parseInt(document.getElementById("k_leads").value) ||
+              parseInt(document.getElementById("v_warm").value) ||
               0,
-
             dataUpsold:
-              parseInt(document.getElementById("a_data_upsold").value) || 0,
+              parseInt(document.getElementById("a_data_upsold").value) ||
+              parseInt(document.getElementById("v_5g").value) ||
+              0,
             vasUpsold:
               parseInt(document.getElementById("a_vas_upsold").value) || 0,
             vzRefs:
               parseInt(document.getElementById("a_vz_upsold").value) ||
               parseInt(document.getElementById("vz_ref").value) ||
               parseInt(document.getElementById("k_vz_ref").value) ||
+              parseInt(document.getElementById("v_inbound").value) ||
               0,
-
             doorsKnocked:
-              parseInt(document.getElementById("d_doors").value) || 0,
+              parseInt(document.getElementById("d_doors").value) ||
+              parseInt(document.getElementById("v_doors").value) ||
+              0,
             outboundCalls:
-              parseInt(document.getElementById("d_calls").value) || 0,
+              parseInt(document.getElementById("d_calls").value) ||
+              parseInt(document.getElementById("v_outbound").value) ||
+              0,
             apptsMade: parseInt(document.getElementById("d_appts").value) || 0,
             interactions:
-              parseInt(document.getElementById("d_interact").value) || 0,
+              parseInt(document.getElementById("d_interact").value) ||
+              parseInt(document.getElementById("v_followups").value) ||
+              0,
             vzApptRefs:
               parseInt(document.getElementById("d_vzappt").value) || 0,
             callsAnswered:
               parseInt(document.getElementById("a_calls").value) ||
               parseInt(document.getElementById("k_calls").value) ||
+              parseInt(document.getElementById("v_warm_contact").value) ||
               0,
             ordersWritten:
               parseInt(document.getElementById("a_orders").value) ||
               parseInt(document.getElementById("k_orders").value) ||
+              parseInt(document.getElementById("v_quotes").value) ||
               0,
             leadsScrubbed:
               parseInt(document.getElementById("a_scrubbed").value) ||
               parseInt(document.getElementById("k_scrubbed").value) ||
+              parseInt(document.getElementById("v_self_gen").value) ||
               0,
           },
           products: {
@@ -1733,7 +1876,10 @@
             existPhone: counts.exist_phone,
             totalVas: calculatedVas,
             youtubeTv: counts.ytv,
-            vzLines: counts.vz_lines,
+            vzLines:
+              counts.vz_lines ||
+              parseInt(document.getElementById("v_lines").value) ||
+              0,
           },
           additionalTasks: adminTasks,
         };
@@ -1775,11 +1921,8 @@
       }
 
       initDirectory();
-
-      // --- NEW: Initialize local date on page load ---
       setLocalToday();
 
-      // --- NEW: Bulletproof Background Date Updater ---
       function autoRefreshDate() {
         var dInput = document.getElementById("edate");
         if (dInput && dInput.hasAttribute("readonly")) {
@@ -1787,17 +1930,14 @@
         }
       }
 
-      // 1. The Pulse: Check every 5 minutes (300,000 milliseconds)
       setInterval(autoRefreshDate, 300000);
 
-      // 2. The Wake-Up: Check instantly when they click back to the tab
       document.addEventListener("visibilitychange", function () {
         if (document.visibilityState === "visible") {
           autoRefreshDate();
         }
       });
 
-      // --- NEW: Override Button Event Listener ---
       document
         .getElementById("overrideDateBtn")
         .addEventListener("click", function () {
@@ -1806,7 +1946,6 @@
           var textSpan = document.getElementById("dateLockText");
 
           if (dInput.hasAttribute("readonly")) {
-            // Unlock State
             dInput.removeAttribute("readonly");
             dInput.style.backgroundColor = "#ffffff";
             dInput.style.border = "1px solid #e2e8f0";
@@ -1817,7 +1956,6 @@
             icon.className = "ti ti-lock-open";
             textSpan.innerText = "Lock & Reset";
           } else {
-            // Lock State
             dInput.setAttribute("readonly", true);
             dInput.style.backgroundColor = "#f4f5f7";
             dInput.style.border = "1px solid transparent";

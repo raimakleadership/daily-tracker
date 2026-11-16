@@ -3,8 +3,8 @@ const agentDirectory = [
   { name: "Caressa Scarrett", team: "Remote", mode: "sc" },
   { name: "Ken Roundtree", team: "Remote", mode: "sc" },
   { name: "Isabel Turrubiartez", team: "Remote", mode: "sc" },
-  { name: "Meghann Stevens",  team: "Remote", mode: "sc" },
-  { name: "Kelly Moats",  team: "Remote", mode: "sc" },
+  { name: "Meghann Stevens", team: "Remote", mode: "sc" },
+  { name: "Kelly Moats", team: "Remote", mode: "sc" },
 
   // --- FLORIDA SALES CENTER ---
   { name: "Noah Caldwell", team: "Florida", mode: "sc" },
@@ -14,13 +14,10 @@ const agentDirectory = [
   { name: "Steph Balleste", team: "Florida", mode: "sc" },
   { name: "Ally Cooper", team: "Florida", mode: "sc" },
   { name: "Mackenzi Windle", team: "Florida", mode: "sc" },
-  
+
   // --- ALLY'S TEAM ---
   { name: "Ashley Lewis", team: "Ally's Team", mode: "sc" },
-  { name: "Ashley Owens", team: "Ally's Team", mode: "sc" },
-  { name: "Chandler Vandeboe", team: "Ally's Team", mode: "sc" },
-  { name: "Heather Norris", team: "Ally's Team", mode: "sc" },
-  { name: "Jennifer Smith", team: "Ally's Team", mode: "sc" },
+  { name: "Ashley Owens", team: "Ally's Team", mode: "vz" },
 
   // --- TEXAS SALES CENTER ---
   { name: "Jon Scroggins", team: "Texas", mode: "sc" },
@@ -56,23 +53,11 @@ const agentDirectory = [
   { name: "Michale McGee", team: "D2D Team", mode: "d2d" },
   { name: "Shannon Kester", team: "D2D Team", mode: "d2d" },
   { name: "Chris Miller", team: "D2D Team", mode: "d2d" },
-  /** Washed out employees
-  { name: "Stephon Davis", team: "Houston Bryant", mode: "d2d" },
-  { name: "Shawn Patrick", team: "Houston Bryant", mode: "d2d" },
-  { name: "Martin Garcia", team: "Houston Bryant", mode: "d2d" },
-  { name: "Lloyd Gregg", team: "Houston Bryant", mode: "d2d" },
-  { name: "Jason Lerma", team: "Houston Bryant", mode: "d2d" },
-  { name: "Jason Morningstar", team: "Ty Hughes", mode: "d2d" },
-  { name: "Randy Robinson", team: "Ty Hughes", mode: "d2d" },
-  { name: "Donald Wiley", team: "Ty Hughes", mode: "d2d" },
-  { name: "Josh Urley", team: "Ty Hughes", mode: "d2d" },
-  **/
 
   // --- D2D: INDEPENDENT CONTRACTORS ---
   { name: "Travis Goosens", team: "Independent Contractor", mode: "d2d" },
 
   // --- KINETIC: JATON'S TEAM ---
-  // { name: "Dylan Aul", team: "Jaton's Team", mode: "kinetic" },
   { name: "Jaton Turner", team: "Jaton's Team", mode: "kinetic" },
   { name: "Veronica Daughety", team: "Jaton's Team", mode: "kinetic" },
   { name: "Janice Pye", team: "Jaton's Team", mode: "kinetic" },
@@ -98,10 +83,13 @@ const agentDirectory = [
   { name: "Makayla Elliot", team: "Admin", mode: "kinetic" },
 
   // --- KINETIC: INDEPENDENT CONTRACTORS ---
-  { name: "Marketing Contractors", team: "Independent Contractor", mode: "kinetic" }
-];
+  {
+    name: "Marketing Contractors",
+    team: "Independent Contractor",
+    mode: "kinetic",
+  },
 
-// forcing
-// another
-// new deployment smh
-// fucking pages
+  { name: "Joceline Murga Galeana", team: "VZ IL Team", mode: "vz" },
+  { name: "Johan Palacios Galeana", team: "VZ IL Team", mode: "vz" },
+  { name: "Jolette Cadena", team: "VZ IL Team", mode: "vz" },
+];
