@@ -16,7 +16,7 @@ const agentDirectory = [
   { name: "Mackenzi Windle", team: "Ally's Team", mode: "vz" },
 
   // --- ALLY'S TEAM ---
-  { name: "Ashley Lewis", team: "Ally's Team", mode: "sc" },
+  { name: "Ashley Lewis", team: "Remote", mode: "sc" },
   { name: "Ashley Owens", team: "Ally's Team", mode: "vz" },
 
   // --- TEXAS SALES CENTER ---
